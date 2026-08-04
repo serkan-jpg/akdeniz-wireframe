@@ -209,6 +209,7 @@
         .add-row { display:flex; align-items:center; gap:10px; padding:12px 14px; border:2px dashed #ddd; border-radius:10px; margin-bottom:8px; color:#666; font-size:14px; font-weight:600; }
         .add-row:active { background:#f5f5f5; border-color:#bbb; }
         .add-row-icon { width:28px; height:28px; background:#eee; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px; color:#666; }
+        .form-row-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
 
         .search-field { display:flex; align-items:center; gap:8px; background:#fff; border:2px solid #ddd; border-radius:8px; padding:4px 12px; margin-bottom:10px; }
         .search-field input { flex:1; border:none; outline:none; font-size:15px; padding:10px 0; background:transparent; }
@@ -474,43 +475,90 @@
                 <span class="label">Takım</span>
                 <div class="pill-group" id="pill-takim">
                     <div class="pill" data-val="Akbük">Akbük</div>
-                    <div class="pill active" data-val="Kaş">Kaş</div>
+                    <div class="pill" data-val="AKD-Ministry">AKD-Ministry</div>
+                    <div class="pill" data-val="Akyaka">Akyaka</div>
                     <div class="pill" data-val="Göcek">Göcek</div>
+                    <div class="pill" data-val="Karaca">Karaca</div>
+                    <div class="pill active" data-val="Kaş">Kaş</div>
                     <div class="pill" data-val="Okluk">Okluk</div>
-                    <div class="pill" data-val="English Bay">English Bay</div>
+                    <div class="pill" data-val="Orhaniye">Orhaniye</div>
                 </div>
             </div>
 
-            <div class="section">
-                <span class="label">Görev Tipi</span>
-                <div class="pill-group" id="pill-gorev">
-                    <div class="pill active" data-val="Rutin Devriye">Rutin Devriye</div>
-                    <div class="pill" data-val="İhbar Çıkışı">İhbar Çıkışı</div>
-                    <div class="pill" data-val="Takip Devriyesi">Takip Devriyesi</div>
-                    <div class="pill" data-val="Bilimsel Çalışma">Bilimsel Çalışma</div>
-                    <div class="pill" data-val="Diğer">Diğer</div>
+            <div class="form-row-2">
+                <div class="section" style="margin-bottom:0;">
+                    <span class="label">Görev Tipi</span>
+                    <select class="input" id="sel-gorev" style="margin-bottom:0;">
+                        <option value="">Seçin...</option>
+                        <option value="Bilimsel Çalışma">Bilimsel Çalışma</option>
+                        <option value="Diğer">Diğer</option>
+                        <option value="Fok Çalışması">Fok Çalışması</option>
+                        <option value="Gece Devriyesi">Gece Devriyesi</option>
+                        <option value="İhbar Çıkışı">İhbar Çıkışı</option>
+                        <option value="Jandarma">Jandarma</option>
+                        <option selected value="Rutin Devriye">Rutin Devriye</option>
+                        <option value="Sahil Güvenlik Devriyesi">Sahil Güvenlik Devriyesi</option>
+                        <option value="Su Ürünleri Devriyesi">Su Ürünleri Devriyesi</option>
+                        <option value="Takip Devriyesi">Takip Devriyesi</option>
+                        <option value="Temizlik">Temizlik</option>
+                    </select>
+                </div>
+                <div class="section" style="margin-bottom:0;">
+                    <span class="label">Araç</span>
+                    <select class="input" id="sel-arac" style="margin-bottom:0;">
+                        <option value="">Seçin...</option>
+                        <option>Akdeniz Koruma 1</option>
+                        <option>Akdeniz Koruma 2</option>
+                        <option>Akdeniz Koruma 3</option>
+                        <option>Akdeniz Koruma 4</option>
+                        <option>Akdeniz Koruma 5</option>
+                        <option>Akdeniz Koruma 6</option>
+                        <option>Akdeniz Koruma 7</option>
+                        <option>Akdeniz Koruma 8</option>
+                        <option>Akdeniz Koruma 9</option>
+                        <option>Akdeniz Koruma 10</option>
+                    </select>
                 </div>
             </div>
 
-            <div class="section">
-                <span class="label">İstasyon (Kalkış Noktası)</span>
-                <div class="search-field">
-                    <span class="search-field-icon">🔍</span>
-                    <input type="text" placeholder="İstasyon ara..." id="station-input" value="Kaş İstasyonu">
+            <div class="form-row-2" style="margin-top:20px;">
+                <div class="section" style="margin-bottom:0;">
+                    <span class="label">İstasyon</span>
+                    <select class="input" id="sel-station" style="margin-bottom:0;">
+                        <option value="">Seçin...</option>
+                        <option>Akbük</option>
+                        <option>Akyaka</option>
+                        <option>Akyaka Coop</option>
+                        <option>Bördübet</option>
+                        <option>Çamlı</option>
+                        <option>Göcek</option>
+                        <option>Karaca</option>
+                        <option selected>Kaş</option>
+                        <option>Longoz</option>
+                        <option>Okluk</option>
+                        <option>Orhaniye</option>
+                    </select>
                 </div>
-                <div class="search-result visible">📍 Kaş İstasyonu</div>
+                <div class="section" style="margin-bottom:0;">
+                    <span class="label">Hedef Alan</span>
+                    <select class="input" id="sel-dest" style="margin-bottom:0;">
+                        <option value="">Seçin...</option>
+                        <option>Akbük</option>
+                        <option>Akyaka</option>
+                        <option>Akyaka Coop</option>
+                        <option>Bördübet</option>
+                        <option>Çamlı</option>
+                        <option>Göcek</option>
+                        <option>Karaca</option>
+                        <option>Kaş</option>
+                        <option>Longoz</option>
+                        <option>Okluk</option>
+                        <option>Orhaniye</option>
+                    </select>
+                </div>
             </div>
 
-            <div class="section">
-                <span class="label">Hedef Alan</span>
-                <div class="search-field">
-                    <span class="search-field-icon">🔍</span>
-                    <input type="text" placeholder="Hedef alan ara..." id="dest-input">
-                </div>
-                <div class="search-result" id="dest-result"></div>
-            </div>
-
-            <div class="section">
+            <div class="section" style="margin-top:20px;">
                 <span class="label">Başlangıç Tarihi / Saati</span>
                 <div style="display:flex;gap:12px;">
                     <input type="date" class="input" style="margin-bottom:0;" value="2026-08-04">
@@ -558,8 +606,12 @@
                     <span class="patrol-info-value" id="aktif-gorev">Rutin Devriye</span>
                 </div>
                 <div class="patrol-info-row">
+                    <span class="patrol-info-label">Araç</span>
+                    <span class="patrol-info-value" id="aktif-arac">—</span>
+                </div>
+                <div class="patrol-info-row">
                     <span class="patrol-info-label">İstasyon</span>
-                    <span class="patrol-info-value" id="aktif-station">Kaş İstasyonu</span>
+                    <span class="patrol-info-value" id="aktif-station">Kaş</span>
                 </div>
                 <div class="patrol-info-row">
                     <span class="patrol-info-label">Ekip</span>
@@ -985,17 +1037,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    /* ── DESTINATION SEARCH (demo) ── */
-    document.getElementById('dest-input').addEventListener('input', function() {
-        const v = this.value.trim();
-        const r = document.getElementById('dest-result');
-        if (v.length > 1) {
-            r.textContent = '📍 ' + v + ' (örnek sonuç)';
-            r.classList.add('visible');
-        } else {
-            r.classList.remove('visible');
-        }
-    });
 
     /* ── ADD PILOT / MEMBER (demo) ── */
     let pilotAdded = false, memberAdded = false;
@@ -1035,10 +1076,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Read form values
         const takim = document.querySelector('#pill-takim .pill.active');
-        const gorev = document.querySelector('#pill-gorev .pill.active');
         if (takim) document.getElementById('aktif-takim').textContent = takim.dataset.val;
-        if (gorev) document.getElementById('aktif-gorev').textContent = gorev.dataset.val;
-        document.getElementById('aktif-station').textContent = document.getElementById('station-input').value || 'Kaş İstasyonu';
+        const gorev = document.getElementById('sel-gorev');
+        document.getElementById('aktif-gorev').textContent = gorev.value || '—';
+        const arac = document.getElementById('sel-arac');
+        document.getElementById('aktif-arac').textContent = arac.value || '—';
+        const station = document.getElementById('sel-station');
+        document.getElementById('aktif-station').textContent = station.value || '—';
 
         // Build member chips
         const chips = document.getElementById('aktif-ekip');
