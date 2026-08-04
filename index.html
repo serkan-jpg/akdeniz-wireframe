@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="tr">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>İhbar Uygulaması Wireframe - Tüm Ekranlar</title>
+    <title>GÖRÜLDÜ — Wireframe</title>
     <style>
         body {
             margin: 0;
@@ -15,766 +13,400 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            height: 100svh;
+            height: 100vh; height: 100svh;
             overflow: hidden;
             -webkit-font-smoothing: antialiased;
         }
-
-        * {
-            -webkit-tap-highlight-color: transparent !important;
-            box-sizing: border-box;
-        }
-
+        * { -webkit-tap-highlight-color: transparent !important; box-sizing: border-box; }
         button, a, .card-btn, .list-item, .upload-box, .nav-item,
-        .profile-icon, .back-btn, .tag, .auth-link {
-            touch-action: manipulation;
-            cursor: pointer;
-            user-select: none;
-            -webkit-user-select: none;
+        .profile-icon, .back-btn, .tag, .auth-link, .pill, .obs-tag, .add-row, .member-chip {
+            touch-action: manipulation; cursor: pointer;
+            user-select: none; -webkit-user-select: none;
         }
-
         .device-frame {
-            width: 375px;
-            height: 812px;
-            background: #ffffff;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            display: flex;
-            flex-direction: column;
-            border-radius: 36px;
-            border: 8px solid #222;
+            width: 375px; height: 812px;
+            background: #fff; position: relative; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,.15);
+            display: flex; flex-direction: column;
+            border-radius: 36px; border: 8px solid #222;
         }
-
         @media screen and (max-width: 480px) {
             body { background: #fff; display: block; }
-            .device-frame {
-                width: 100% !important;
-                height: 100% !important;
-                border: none !important;
-                border-radius: 0 !important;
-                box-shadow: none !important;
-            }
-            .status-bar { display: none !important; }
+            .device-frame { width:100%!important; height:100%!important; border:none!important; border-radius:0!important; box-shadow:none!important; }
+            .status-bar { display:none!important; }
         }
 
+        /* ── STATUS BAR ── */
         .status-bar {
-            height: 44px;
-            background: #fff;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-            font-size: 12px;
-            font-weight: 600;
-            color: #333;
-            border-bottom: 1px solid #eee;
-            flex-shrink: 0;
-            z-index: 100;
+            height: 44px; background: #fff;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 20px; font-size: 12px; font-weight: 600; color: #333;
+            border-bottom: 1px solid #eee; flex-shrink: 0; z-index: 100;
         }
 
-        .header {
-            padding: 16px 20px;
-            background: #fdfdfd;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #e0e0e0;
-            flex-shrink: 0;
-            min-height: 64px;
-        }
-
-        .header h1 {
-            font-size: 20px;
-            margin: 0;
-            color: #111;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        .profile-icon {
-            width: 34px;
-            height: 34px;
-            background: #ccc;
-            border-radius: 50%;
-            border: 2px solid #888;
-            flex-shrink: 0;
-        }
-
-        .back-btn {
-            font-size: 16px;
-            margin-right: 12px;
-            font-weight: 700;
+        /* ── GPS RECORDING BAR ── */
+        .gps-bar {
             display: none;
-            padding: 8px 12px 8px 0;
-            color: #111;
+            height: 34px; background: #1a5c2a;
+            align-items: center; justify-content: space-between;
+            padding: 0 16px; flex-shrink: 0; z-index: 99;
         }
+        .gps-bar.active { display: flex; }
+        .gps-dot {
+            width: 8px; height: 8px; background: #4cff7e; border-radius: 50%;
+            margin-right: 8px; flex-shrink: 0;
+            box-shadow: 0 0 0 0 rgba(76,255,126,.4);
+            animation: gpsPulse 1.5s infinite;
+        }
+        @keyframes gpsPulse {
+            0%   { box-shadow: 0 0 0 0 rgba(76,255,126,.5); }
+            70%  { box-shadow: 0 0 0 6px rgba(76,255,126,0); }
+            100% { box-shadow: 0 0 0 0 rgba(76,255,126,0); }
+        }
+        .gps-label { color: #c8f5d8; font-size: 12px; font-weight: 600; flex: 1; }
+        .gps-elapsed { color: #fff; font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; }
 
+        /* ── HEADER ── */
+        .header {
+            padding: 16px 20px; background: #fdfdfd;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 2px solid #e0e0e0; flex-shrink: 0; min-height: 64px;
+        }
+        .header h1 { font-size: 20px; margin: 0; color: #111; font-weight: 700; letter-spacing: -.5px; }
+        .profile-icon { width:34px; height:34px; background:#ccc; border-radius:50%; border:2px solid #888; flex-shrink:0; }
+        .back-btn { font-size:16px; margin-right:12px; font-weight:700; display:none; padding:8px 12px 8px 0; color:#111; }
         body.subview .back-btn { display: block; }
         body.subview .profile-icon { display: none; }
 
-        .content {
-            flex: 1;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            padding: 20px;
-            padding-bottom: 110px;
-            background: #fafafa;
+        /* ── CONTENT ── */
+        .content { flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; padding:20px; padding-bottom:110px; background:#fafafa; }
+        .view { display:none; animation:fadeIn .3s ease; }
+        .view.active { display:block; }
+        @keyframes fadeIn { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
+
+        /* ── AUTH MODE ── */
+        body.auth-mode .header  { display:none!important; }
+        body.auth-mode .nav     { display:none!important; }
+        body.auth-mode .content { padding-bottom:0!important; background:#fff; }
+        .auth-container { display:flex; flex-direction:column; justify-content:center; align-items:center; min-height:100%; padding:20px; text-align:center; }
+        .app-logo { width:80px; height:80px; background:#222; border-radius:20px; margin-bottom:16px; flex-shrink:0; }
+        .app-title { font-size:24px; font-weight:800; margin-bottom:40px; color:#111; }
+        .auth-input { width:100%; padding:16px; border:2px solid #ddd; border-radius:10px; margin-bottom:12px; font-size:16px!important; background:#fafafa; -webkit-appearance:none; }
+        .auth-input:focus { border-color:#555; }
+        .social-btn { width:100%; padding:16px; border-radius:10px; font-weight:600; font-size:16px; margin-bottom:12px; display:flex; justify-content:center; align-items:center; border:2px solid #ddd; background:#fff; color:#333; -webkit-appearance:none; }
+        .social-btn:active { background:#f0f0f0; }
+        .social-btn.icon::before { content:''; display:inline-block; width:20px; height:20px; background:#666; margin-right:10px; border-radius:50%; }
+        .social-btn.apple { background:#111; color:#fff; border:none; }
+        .divider { display:flex; align-items:center; color:#999; font-size:13px; margin:24px 0; width:100%; }
+        .divider::before,.divider::after { content:''; flex:1; border-bottom:1px solid #ddd; }
+        .divider::before { margin-right:15px; } .divider::after { margin-left:15px; }
+        .auth-link { font-size:14px; color:#555; margin-top:24px; font-weight:600; padding:10px; }
+        .auth-link span { color:#111; text-decoration:underline; pointer-events:none; }
+
+        /* ── GENERAL UI ── */
+        .section { margin-bottom:24px; }
+        .label { font-size:15px; font-weight:700; color:#333; margin-bottom:6px; display:block; }
+        .helper-text { font-size:12px; color:#777; margin-bottom:14px; line-height:1.4; }
+        .card-btn { background:#fff; border:2px solid #ddd; border-radius:12px; padding:24px 20px; margin-bottom:20px; text-align:left; display:flex; flex-direction:column; gap:12px; box-shadow:0 4px 10px rgba(0,0,0,.03); transition:transform .2s,background .2s; }
+        .card-btn:active { background:#f9f9f9; border-color:#bbb; transform:scale(.98); }
+        .card-btn.emergency { border-color:#ffcccc; background:#fff5f5; margin-top:30px; }
+        .card-title { font-size:18px; font-weight:800; color:#333; pointer-events:none; }
+        .card-title.red { color:#cc0000; }
+        .card-desc { font-size:14px; color:#666; line-height:1.4; pointer-events:none; }
+        .upload-box { border:2px dashed #999; border-radius:12px; background:#f0f0f0; height:140px; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#444; }
+        .upload-box:active { background:#e0e0e0; border-color:#666; }
+        .upload-box span { font-size:15px; font-weight:600; pointer-events:none; }
+        .upload-box small { font-size:11px; color:#888; margin-top:4px; pointer-events:none; }
+        .input { width:100%; padding:16px; border:2px solid #ddd; border-radius:8px; font-size:16px!important; background:#fff; color:#333; outline:none; margin-bottom:10px; -webkit-appearance:none; }
+        .input:focus { border-color:#777; }
+        textarea.input { height:100px; resize:none; font-family:inherit; }
+        select.input { appearance:none; -webkit-appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 16px center; padding-right:40px; }
+        .location-box { display:flex; align-items:center; gap:12px; background:#fff; padding:4px; border-radius:8px; border:2px solid #ddd; }
+        .location-btn { background:#444; color:white; border:none; padding:12px 10px; border-radius:6px; font-weight:600; font-size:13px; -webkit-appearance:none; }
+        .location-btn:active { background:#222; }
+        .location-text { font-size:13px; color:#666; flex:1; padding:0 8px; word-break:break-word; }
+        .tags { display:flex; flex-wrap:wrap; gap:10px; }
+        .tag,.pill { padding:12px 16px; background:#fff; border:2px solid #ddd; border-radius:20px; font-size:14px; color:#555; font-weight:500; }
+        .tag.active,.pill.active { background:#444; color:white; border-color:#444; }
+        .checkbox-container { display:flex; align-items:flex-start; gap:12px; font-size:12px; color:#555; line-height:1.5; margin-bottom:24px; }
+        .checkbox { width:24px; height:24px; border:2px solid #999; border-radius:4px; flex-shrink:0; background:#fff; }
+        .primary-btn { width:100%; background:#111; color:white; border:none; padding:18px; font-size:16px; font-weight:700; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.2); position:sticky; bottom:20px; z-index:10; -webkit-appearance:none; }
+        .primary-btn:active { background:#333; transform:scale(.98); }
+        .secondary-btn { width:100%; background:#fff; color:#444; border:2px solid #ddd; padding:16px; font-size:15px; font-weight:600; border-radius:10px; margin-top:12px; -webkit-appearance:none; }
+        .secondary-btn:active { background:#f5f5f5; }
+        .danger-btn { width:100%; background:#fff; color:#cc0000; border:2px solid #ffcccc; padding:16px; font-size:15px; font-weight:600; border-radius:10px; margin-top:12px; margin-bottom:16px; -webkit-appearance:none; }
+        .danger-btn:active { background:#fff5f5; }
+
+        /* ── NAV ── */
+        .nav { height:70px; background:#fff; border-top:1px solid #e0e0e0; display:flex; justify-content:space-around; align-items:center; position:absolute; bottom:0; width:100%; padding-bottom:env(safe-area-inset-bottom); z-index:20; }
+        body.subview .nav { display:none!important; }
+        .nav-item { display:flex; flex-direction:column; align-items:center; color:#999; text-decoration:none; font-size:11px; font-weight:600; gap:4px; width:30%; padding:8px 0; }
+        .nav-item.active { color:#111; }
+        .nav-icon { width:24px; height:24px; background:#ccc; border-radius:6px; pointer-events:none; }
+        .nav-item.active .nav-icon { background:#111; transform:scale(1.1); }
+        .nav-fab { width:48px; height:48px; background:#111; border-radius:50%; margin-top:-24px; border:4px solid #fff; box-shadow:0 2px 8px rgba(0,0,0,.2); pointer-events:none; transition:transform .2s; }
+        .nav-item.active .nav-fab { transform:scale(1.1); }
+
+        /* ── LIST ITEMS ── */
+        .list-item { background:#fff; border:1px solid #ddd; border-radius:10px; padding:14px; margin-bottom:14px; display:flex; gap:12px; box-shadow:0 2px 4px rgba(0,0,0,.02); align-items:center; transition:all .2s; }
+        .list-item:active { transform:scale(.98); background:#f9f9f9; }
+        .item-thumbnail { width:60px; height:60px; background:#eee; border-radius:8px; border:1px solid #ccc; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:10px; color:#aaa; pointer-events:none; }
+        .item-details { flex:1; display:flex; flex-direction:column; gap:4px; pointer-events:none; }
+        .item-title { font-weight:700; font-size:15px; color:#222; }
+        .item-date { font-size:12px; color:#777; }
+        .item-status { align-self:flex-start; font-size:11px; font-weight:700; padding:4px 8px; border-radius:4px; background:#e8f5e9; color:#2e7d32; }
+        .item-status::before { content:'✓ '; }
+        .item-status.pending { background:#fff8e1; color:#f57f17; }
+        .item-status.pending::before { content:'⏳ '; }
+
+        /* ── MODALS ── */
+        .modal-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,.6); display:none; justify-content:center; align-items:flex-end; z-index:1000; }
+        @media screen and (min-width:481px) {
+            .modal-overlay { align-items:center; position:absolute; border-radius:28px; }
+            .modal-card { max-height:85%; border-radius:16px!important; margin:20px; }
         }
-
-        .view {
-            display: none;
-            animation: fadeIn 0.3s ease-in-out;
-            height: 100%;
-        }
-
-        .view.active { display: block; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        body.auth-mode .header  { display: none !important; }
-        body.auth-mode .nav     { display: none !important; }
-        body.auth-mode .content { padding-bottom: 0px !important; background: #fff; }
-
-        .auth-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100%;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .app-logo {
-            width: 80px;
-            height: 80px;
-            background: #222;
-            border-radius: 20px;
-            margin-bottom: 16px;
-            flex-shrink: 0;
-        }
-
-        .app-title {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 40px;
-            color: #111;
-        }
-
-        .auth-input {
-            width: 100%;
-            padding: 16px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            margin-bottom: 12px;
-            font-size: 16px !important;
-            line-height: normal;
-            background: #fafafa;
-            -webkit-appearance: none;
-        }
-
-        .auth-input:focus { border-color: #555; }
-
-        .social-btn {
-            width: 100%;
-            padding: 16px;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 16px;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 2px solid #ddd;
-            background: #fff;
-            color: #333;
-            -webkit-appearance: none;
-        }
-
-        .social-btn:active { background: #f0f0f0; }
-
-        .social-btn.icon::before {
-            content: '';
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            background: #666;
-            margin-right: 10px;
-            border-radius: 50%;
-        }
-
-        .social-btn.apple { background: #111; color: #fff; border: none; }
-        .social-btn.apple:active { background: #333; }
-
-        .divider {
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: #999;
-            font-size: 13px;
-            margin: 24px 0;
-            width: 100%;
-        }
-
-        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #ddd; }
-        .divider::before { margin-right: 15px; }
-        .divider::after  { margin-left: 15px; }
-
-        .auth-link {
-            font-size: 14px;
-            color: #555;
-            margin-top: 24px;
-            font-weight: 600;
-            padding: 10px;
-        }
-
-        .auth-link span { color: #111; text-decoration: underline; pointer-events: none; }
-
-        .section { margin-bottom: 28px; }
-
-        .label {
-            font-size: 15px;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 6px;
-            display: block;
-        }
-
-        .helper-text {
-            font-size: 12px;
-            color: #777;
-            margin-bottom: 14px;
-            line-height: 1.4;
-        }
-
-        .card-btn {
-            background: #fff;
-            border: 2px solid #ddd;
-            border-radius: 12px;
-            padding: 24px 20px;
-            margin-bottom: 20px;
-            text-align: left;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-            transition: transform 0.2s, background 0.2s;
-        }
-
-        .card-btn:active { background: #f9f9f9; border-color: #bbb; transform: scale(0.98); }
-
-        .card-btn.emergency { border-color: #ffcccc; background: #fff5f5; margin-top: 30px; }
-        .card-btn.emergency:active { background: #ffebeb; border-color: #ffaaaa; }
-
-        .card-title { font-size: 18px; font-weight: 800; color: #333; pointer-events: none; }
-        .card-title.red { color: #cc0000; }
-        .card-desc { font-size: 14px; color: #666; line-height: 1.4; pointer-events: none; }
-
-        .upload-box {
-            border: 2px dashed #999;
-            border-radius: 12px;
-            background: #f0f0f0;
-            height: 140px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #444;
-        }
-
-        .upload-box:active { background: #e0e0e0; border-color: #666; }
-
-        .upload-icon {
-            width: 40px;
-            height: 40px;
-            background: #bbb;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            pointer-events: none;
-        }
-
-        .upload-box span  { font-size: 15px; font-weight: 600; pointer-events: none; }
-        .upload-box small { font-size: 11px; color: #888; margin-top: 4px; pointer-events: none; }
-
-        .input {
-            width: 100%;
-            padding: 16px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px !important;
-            background: #fff;
-            color: #333;
-            outline: none;
-            margin-bottom: 10px;
-            -webkit-appearance: none;
-        }
-
-        .input:focus { border-color: #777; }
-        textarea.input { height: 100px; resize: none; font-family: inherit; }
-
-        .location-box {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: #fff;
-            padding: 4px;
-            border-radius: 8px;
-            border: 2px solid #ddd;
-        }
-
-        .location-btn {
-            background: #444;
-            color: white;
-            border: none;
-            padding: 12px 10px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 13px;
-            -webkit-appearance: none;
-        }
-
-        .location-btn:active { background: #222; }
-
-        .location-text { font-size: 13px; color: #666; flex: 1; padding: 0 8px; word-break: break-word; }
-
-        .tags { display: flex; flex-wrap: wrap; gap: 10px; }
-
-        .tag {
-            padding: 12px 16px;
-            background: #fff;
-            border: 2px solid #ddd;
-            border-radius: 20px;
-            font-size: 14px;
-            color: #555;
-            font-weight: 500;
-        }
-
-        .tag.active { background: #444; color: white; border-color: #444; }
-
-        .checkbox-container {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            font-size: 12px;
-            color: #555;
-            line-height: 1.5;
-            margin-bottom: 24px;
-        }
-
-        .checkbox {
-            width: 24px;
-            height: 24px;
-            border: 2px solid #999;
-            border-radius: 4px;
-            flex-shrink: 0;
-            background: #fff;
-        }
-
-        .primary-btn {
-            width: 100%;
-            background: #111;
-            color: white;
-            border: none;
-            padding: 18px;
-            font-size: 16px;
-            font-weight: 700;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            position: sticky;
-            bottom: 20px;
-            z-index: 10;
-            -webkit-appearance: none;
-        }
-
-        .primary-btn:active { background: #333; transform: scale(0.98); }
-
-        .nav {
-            height: 70px;
-            background: #ffffff;
-            border-top: 1px solid #e0e0e0;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            padding-bottom: env(safe-area-inset-bottom);
-            z-index: 20;
-        }
-
-        body.subview .nav { display: none !important; }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #999;
-            text-decoration: none;
-            font-size: 11px;
-            font-weight: 600;
-            gap: 4px;
-            width: 30%;
-            padding: 8px 0;
-        }
-
-        .nav-item.active { color: #111; }
-
-        .nav-icon {
-            width: 24px;
-            height: 24px;
-            background: #ccc;
-            border-radius: 6px;
-            pointer-events: none;
-        }
-
-        .nav-item.active .nav-icon { background: #111; transform: scale(1.1); }
-
-        .nav-fab {
-            width: 48px;
-            height: 48px;
-            background: #111;
-            border-radius: 50%;
-            margin-top: -24px;
-            border: 4px solid #fff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            pointer-events: none;
-        }
-
-        .nav-item.active .nav-fab { transform: scale(1.1); }
-
-        .list-item {
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 14px;
-            margin-bottom: 14px;
-            display: flex;
-            gap: 12px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-            align-items: center;
-            transition: all 0.2s;
-        }
-
-        .list-item:active { transform: scale(0.98); background: #f9f9f9; }
-
-        .item-thumbnail {
-            width: 60px;
-            height: 60px;
-            background: #eee;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            color: #aaa;
-            pointer-events: none;
-        }
-
-        .item-details {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            pointer-events: none;
-        }
-
-        .item-title   { font-weight: 700; font-size: 15px; color: #222; }
-        .item-date    { font-size: 12px; color: #777; }
-
-        .item-status {
-            align-self: flex-start;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 4px 8px;
-            border-radius: 4px;
-            background: #e8f5e9;
-            color: #2e7d32;
-        }
-
-        .item-status::before { content: '✓ '; }
-
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.6);
-            display: none;
-            justify-content: center;
-            align-items: flex-end;
-            z-index: 1000;
-        }
-
-        @media screen and (min-width: 481px) {
-            .modal-overlay { align-items: center; position: absolute; border-radius: 28px; }
-            .modal-card { max-height: 85%; border-radius: 16px !important; margin: 20px; }
-        }
-
-        .modal-overlay.active { display: flex; }
-
-        .modal-card {
-            background: #fff;
-            width: 100%;
-            border-radius: 24px 24px 0 0;
-            overflow: hidden;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.2);
-            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            max-height: 90vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(100%); opacity: 0; }
-            to   { transform: translateY(0);    opacity: 1; }
-        }
-
-        .modal-header {
-            padding: 16px 20px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #fdfdfd;
-        }
-
-        .modal-title  { font-size: 16px; font-weight: 700; color: #111; }
-        .modal-close  { font-size: 28px; color: #999; font-weight: 500; line-height: 1; padding: 0 10px; }
-        .modal-close:active { color: #111; }
-
-        .modal-content {
-            padding: 24px 20px;
-            overflow-y: auto;
-            padding-bottom: env(safe-area-inset-bottom, 20px);
-        }
-
-        .detail-row   { margin-bottom: 20px; }
-
-        .detail-label {
-            font-size: 11px;
-            color: #888;
-            text-transform: uppercase;
-            font-weight: 700;
-            margin-bottom: 6px;
-            display: block;
-            letter-spacing: 0.5px;
-        }
-
-        .detail-value { font-size: 15px; color: #222; font-weight: 500; line-height: 1.4; }
-
-        .detail-photo {
-            width: 100%;
-            height: 160px;
-            background: #f0f0f0;
-            border: 1px solid #eee;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #aaa;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        .profile-card {
-            background: #fff;
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            border: 1px solid #ddd;
-            margin-bottom: 24px;
-        }
-
-        .profile-avatar { width: 70px; height: 70px; background: #ccc; border-radius: 50%; margin: 0 auto 12px; }
-        .profile-name   { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-        .profile-email  { font-size: 13px; color: #777; }
-
-        .settings-group {
-            background: #fff;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-            overflow: hidden;
-            margin-bottom: 24px;
-        }
-
-        .settings-item {
-            padding: 16px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 16px;
-            font-weight: 500;
-            color: #333;
-        }
-
-        .settings-item:last-child { border-bottom: none; }
-
-        .logout-btn {
-            width: 100%;
-            padding: 16px;
-            background: #fff;
-            color: #cc0000;
-            border: 1px solid #ffcccc;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 16px;
-            -webkit-appearance: none;
-        }
-
-        .error-banner {
-            background: #ffdddd;
-            color: #aa0000;
-            padding: 15px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 14px;
-            width: 100%;
-        }
+        .modal-overlay.active { display:flex; }
+        .modal-card { background:#fff; width:100%; border-radius:24px 24px 0 0; overflow:hidden; box-shadow:0 -10px 40px rgba(0,0,0,.2); animation:slideUp .3s cubic-bezier(.16,1,.3,1); max-height:90vh; display:flex; flex-direction:column; }
+        @keyframes slideUp { from{transform:translateY(100%);opacity:0} to{transform:translateY(0);opacity:1} }
+        .modal-header { padding:16px 20px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center; background:#fdfdfd; }
+        .modal-title { font-size:16px; font-weight:700; color:#111; }
+        .modal-close { font-size:28px; color:#999; font-weight:500; line-height:1; padding:0 10px; }
+        .modal-close:active { color:#111; }
+        .modal-content { padding:24px 20px; overflow-y:auto; padding-bottom:env(safe-area-inset-bottom,20px); }
+        .detail-row { margin-bottom:20px; }
+        .detail-label { font-size:11px; color:#888; text-transform:uppercase; font-weight:700; margin-bottom:6px; display:block; letter-spacing:.5px; }
+        .detail-value { font-size:15px; color:#222; font-weight:500; line-height:1.4; }
+        .detail-photo { width:100%; height:160px; background:#f0f0f0; border:1px solid #eee; border-radius:12px; margin-bottom:20px; display:flex; align-items:center; justify-content:center; color:#aaa; font-size:13px; font-weight:600; }
+
+        /* ── ACTION SHEET ── */
+        .action-sheet-overlay { position:absolute; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,.55); display:none; flex-direction:column; justify-content:flex-end; z-index:500; border-radius:28px; }
+        .action-sheet-overlay.active { display:flex; animation:fadeIn .2s ease; }
+        .action-sheet-card { background:#fff; border-radius:24px 24px 0 0; padding:0 0 8px; animation:slideUp .3s cubic-bezier(.16,1,.3,1); }
+        .action-sheet-handle { width:40px; height:4px; background:#e0e0e0; border-radius:2px; margin:12px auto 8px; }
+        .action-sheet-heading { font-size:13px; color:#999; font-weight:600; text-align:center; padding:4px 0 12px; }
+        .action-sheet-item { display:flex; align-items:center; gap:16px; padding:16px 20px; border-top:1px solid #f0f0f0; }
+        .action-sheet-item:active { background:#f9f9f9; }
+        .as-icon { width:44px; height:44px; border-radius:12px; background:#f0f0f0; display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; }
+        .as-info { flex:1; }
+        .as-title { font-size:16px; font-weight:700; color:#111; margin-bottom:2px; }
+        .as-desc { font-size:12px; color:#888; }
+        .as-arrow { color:#ccc; font-size:20px; }
+        .action-sheet-cancel { margin:8px 16px 0; padding:16px; background:#f5f5f5; border-radius:12px; text-align:center; font-size:16px; font-weight:600; color:#444; }
+        .action-sheet-cancel:active { background:#ebebeb; }
+
+        /* ── PATROL FORM ── */
+        .pill-group { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:4px; }
+        .pill { padding:10px 16px; font-size:13px; border-radius:20px; }
+
+        .member-row { display:flex; align-items:center; gap:12px; background:#fff; border:1px solid #e0e0e0; border-radius:10px; padding:12px 14px; margin-bottom:8px; }
+        .member-avatar-sm { width:36px; height:36px; background:#e0e0e0; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#555; flex-shrink:0; }
+        .member-name-sm { font-size:14px; font-weight:600; color:#222; flex:1; }
+        .role-badge { font-size:11px; font-weight:700; padding:3px 8px; border-radius:10px; background:#e8f5e9; color:#1b5e20; }
+        .role-badge.pilot { background:#e3f2fd; color:#0d47a1; }
+        .role-badge.member { background:#f3f3f3; color:#555; }
+        .member-remove { color:#bbb; font-size:20px; padding:4px 8px; }
+        .member-remove:active { color:#cc0000; }
+        .add-row { display:flex; align-items:center; gap:10px; padding:12px 14px; border:2px dashed #ddd; border-radius:10px; margin-bottom:8px; color:#666; font-size:14px; font-weight:600; }
+        .add-row:active { background:#f5f5f5; border-color:#bbb; }
+        .add-row-icon { width:28px; height:28px; background:#eee; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px; color:#666; }
+
+        .search-field { display:flex; align-items:center; gap:8px; background:#fff; border:2px solid #ddd; border-radius:8px; padding:4px 12px; margin-bottom:10px; }
+        .search-field input { flex:1; border:none; outline:none; font-size:15px; padding:10px 0; background:transparent; }
+        .search-field-icon { color:#aaa; font-size:16px; }
+        .search-result { background:#f0f7ff; border:1px solid #bdd7f5; border-radius:8px; padding:10px 14px; font-size:14px; color:#1a4f8a; font-weight:600; display:none; }
+        .search-result.visible { display:block; }
+
+        /* ── ACTIVE PATROL ── */
+        .patrol-summary-card { background:#fff; border:1px solid #e0e0e0; border-radius:12px; padding:16px; margin-bottom:20px; box-shadow:0 2px 8px rgba(0,0,0,.04); }
+        .patrol-info-row { display:flex; align-items:flex-start; gap:10px; margin-bottom:10px; }
+        .patrol-info-row:last-child { margin-bottom:0; }
+        .patrol-info-label { font-size:11px; color:#888; font-weight:700; text-transform:uppercase; letter-spacing:.5px; width:60px; flex-shrink:0; padding-top:1px; }
+        .patrol-info-value { font-size:14px; color:#222; font-weight:600; flex:1; line-height:1.3; }
+        .member-chips { display:flex; flex-wrap:wrap; gap:6px; }
+        .member-chip { font-size:12px; font-weight:600; padding:5px 10px; background:#f0f0f0; border-radius:12px; color:#333; }
+        .member-chip.leader-chip { background:#e8f5e9; color:#1b5e20; }
+        .member-chip.pilot-chip  { background:#e3f2fd; color:#0d47a1; }
+
+        .elapsed-display { text-align:center; padding:20px 0 12px; }
+        .elapsed-big { font-size:42px; font-weight:800; color:#111; letter-spacing:-1px; font-variant-numeric:tabular-nums; }
+        .elapsed-label { font-size:12px; color:#888; font-weight:600; margin-top:4px; }
+
+        .section-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+        .section-count { font-size:12px; color:#888; font-weight:600; }
+
+        .obs-item { background:#fff; border:1px solid #e0e0e0; border-radius:10px; padding:12px 14px; margin-bottom:10px; display:flex; gap:10px; align-items:flex-start; }
+        .obs-cat-dot { width:10px; height:10px; border-radius:50%; background:#444; margin-top:3px; flex-shrink:0; }
+        .obs-cat-dot.balikcilik { background:#e53935; }
+        .obs-cat-dot.kirlilik   { background:#fb8c00; }
+        .obs-cat-dot.vahsi      { background:#43a047; }
+        .obs-cat-dot.sar        { background:#1e88e5; }
+        .obs-item-detail { flex:1; }
+        .obs-item-title { font-size:14px; font-weight:700; color:#222; margin-bottom:2px; }
+        .obs-item-sub   { font-size:12px; color:#777; }
+
+        .empty-state { text-align:center; padding:32px 20px; color:#bbb; }
+        .empty-icon  { font-size:40px; margin-bottom:8px; }
+        .empty-text  { font-size:14px; font-weight:600; }
+
+        .add-obs-btn { width:100%; background:#1a5c2a; color:#fff; border:none; padding:16px; font-size:15px; font-weight:700; border-radius:10px; display:flex; align-items:center; justify-content:center; gap:8px; -webkit-appearance:none; position:sticky; bottom:20px; z-index:10; }
+        .add-obs-btn:active { background:#144822; transform:scale(.98); }
+
+        /* ── OBSERVATION FORM ── */
+        .obs-section { }
+        .obs-section-hidden { display:none!important; }
+        .obs-tags { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:4px; }
+        .obs-tag { padding:10px 14px; font-size:13px; }
+
+        /* ── PROFILE / SETTINGS ── */
+        .profile-card { background:#fff; border-radius:12px; padding:20px; text-align:center; border:1px solid #ddd; margin-bottom:24px; }
+        .profile-avatar { width:70px; height:70px; background:#ccc; border-radius:50%; margin:0 auto 12px; }
+        .profile-name { font-size:18px; font-weight:700; margin-bottom:4px; }
+        .profile-email { font-size:13px; color:#777; }
+        .settings-group { background:#fff; border-radius:10px; border:1px solid #ddd; overflow:hidden; margin-bottom:24px; }
+        .settings-item { padding:16px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center; font-size:16px; font-weight:500; color:#333; }
+        .settings-item:last-child { border-bottom:none; }
+        .logout-btn { width:100%; padding:16px; background:#fff; color:#cc0000; border:1px solid #ffcccc; border-radius:10px; font-weight:700; font-size:16px; -webkit-appearance:none; }
+
+        /* ── GECMIS TABS ── */
+        .tab-row { display:flex; background:#f0f0f0; border-radius:10px; padding:3px; margin-bottom:20px; }
+        .tab-btn { flex:1; padding:9px; text-align:center; font-size:13px; font-weight:600; color:#777; border-radius:8px; }
+        .tab-btn.active { background:#fff; color:#111; box-shadow:0 1px 4px rgba(0,0,0,.1); }
+
+        /* ── PATROL HISTORY LIST ── */
+        .patrol-list-item { background:#fff; border:1px solid #ddd; border-radius:10px; padding:14px; margin-bottom:12px; }
+        .patrol-list-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
+        .patrol-list-title { font-size:15px; font-weight:700; color:#222; }
+        .patrol-list-date  { font-size:12px; color:#888; }
+        .patrol-list-meta  { font-size:12px; color:#666; display:flex; gap:12px; }
+
+        /* ── CONFIRM MODAL ── */
+        .confirm-card { background:#fff; border-radius:16px; margin:20px; padding:24px; animation:scaleIn .25s cubic-bezier(.16,1,.3,1); }
+        @keyframes scaleIn { from{opacity:0;transform:scale(.95)} to{opacity:1;transform:scale(1)} }
+        .confirm-overlay { position:absolute; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,.55); display:none; align-items:center; justify-content:center; z-index:600; border-radius:28px; }
+        .confirm-overlay.active { display:flex; }
+        .confirm-title { font-size:17px; font-weight:800; color:#111; margin-bottom:8px; }
+        .confirm-body  { font-size:14px; color:#555; line-height:1.5; margin-bottom:24px; }
+        .confirm-actions { display:flex; gap:10px; }
+        .confirm-cancel { flex:1; padding:14px; background:#f0f0f0; border-radius:10px; font-size:15px; font-weight:600; color:#444; text-align:center; }
+        .confirm-confirm { flex:1; padding:14px; background:#cc0000; border-radius:10px; font-size:15px; font-weight:700; color:#fff; text-align:center; }
+
+        .error-banner { background:#ffdddd; color:#aa0000; padding:15px; text-align:center; font-weight:bold; font-size:14px; width:100%; }
     </style>
 </head>
 
 <body class="auth-mode">
 
-    <noscript>
-        <div style="position:fixed;top:0;left:0;width:100%;z-index:9999;">
-            <div class="error-banner">HATA: Uygulamanın çalışması için JavaScript gereklidir! Safari veya Chrome gibi
-                bir tarayıcıda açın (iPhone Dosyalar önizlemesinden açtıysanız sağ üstten Safari ikonuna basın).</div>
+<noscript><div style="position:fixed;top:0;left:0;width:100%;z-index:9999;"><div class="error-banner">HATA: JavaScript gereklidir!</div></div></noscript>
+
+<div class="device-frame">
+
+    <div class="status-bar">
+        <span>09:41</span>
+        <span>📶 100%</span>
+    </div>
+
+    <!-- GPS Recording Bar (shown when patrol active) -->
+    <div class="gps-bar" id="gpsBar" id-tap="gpsBarTap">
+        <div class="gps-dot"></div>
+        <span class="gps-label">GPS Kaydediliyor — Aktif Devriye</span>
+        <span class="gps-elapsed" id="gpsElapsed">00:00:00</span>
+    </div>
+
+    <div class="header">
+        <div style="display:flex;align-items:center;">
+            <div class="back-btn" id="btn-back">← Geri</div>
+            <h1 id="header-title">Giriş Yap</h1>
         </div>
-    </noscript>
+        <div class="profile-icon" id="btn-profile"></div>
+    </div>
 
-    <div class="device-frame">
-        <div class="status-bar">
-            <span>09:41</span>
-            <span>📶 100%</span>
+    <div class="content">
+
+        <!-- ── GİRİŞ ── -->
+        <div id="view-auth" class="view active">
+            <div class="auth-container">
+                <div class="app-logo"></div>
+                <div class="app-title">Akdeniz Koruma</div>
+                <input type="email" class="auth-input" placeholder="E-posta Adresi">
+                <input type="password" class="auth-input" placeholder="Şifre">
+                <button class="primary-btn btn-login" style="position:static;margin-bottom:4px;">GİRİŞ YAP</button>
+                <div class="divider">veya</div>
+                <button class="social-btn apple btn-login"> Apple ile Devam Et</button>
+                <button class="social-btn icon btn-login">Google ile Devam Et</button>
+                <div class="auth-link btn-login">Hesabınız yok mu? <span>Kayıt Ol</span></div>
+            </div>
         </div>
 
-        <div class="header">
-            <div style="display:flex; align-items:center;">
-                <div class="back-btn" id="btn-back">← Geri</div>
-                <h1 id="header-title">Giriş Yap</h1>
+        <!-- ── İHBAR ANA EKRANI ── -->
+        <div id="view-ihbar-home" class="view">
+            <div class="section" style="margin-top:10px;">
+                <div class="card-btn" id="btn-open-form">
+                    <div class="card-title">🐟 Standart İhbar Formu</div>
+                    <div class="card-desc">Tespit ettiğiniz deniz canlılarına dair ihbarınızı konum, tarih ve fotoğraflarla birlikte iletin.</div>
+                </div>
+                <a href="tel:05551234567" class="card-btn emergency">
+                    <div class="card-title red">🚨 Acil Durum Bildir</div>
+                    <div class="card-desc">Ölü, yaralı veya annesinden ayrı düşmüş yavru fok görülmesi halinde direkt arayın.</div>
+                </a>
             </div>
-            <div class="profile-icon" id="btn-profile"></div>
         </div>
 
-        <div class="content">
-            <!-- ====== GİRİŞ / KAYIT EKRANI ====== -->
-            <div id="view-auth" class="view active">
-                <div class="auth-container">
-                    <div class="app-logo"></div>
-                    <div class="app-title">Akdeniz Koruma</div>
-
-                    <input type="email" class="auth-input" placeholder="E-posta Adresi">
-                    <input type="password" class="auth-input" placeholder="Şifre">
-
-                    <button class="primary-btn btn-login" style="position: static; margin-bottom: 4px;">GİRİŞ YAP</button>
-
-                    <div class="divider">veya</div>
-
-                    <button class="social-btn apple btn-login"> Apple ile Devam Et</button>
-                    <button class="social-btn icon btn-login">Google ile Devam Et</button>
-                    <div class="auth-link btn-login">Hesabınız yok mu? <span>Kayıt Ol</span></div>
+        <!-- ── İHBAR FORMU ── -->
+        <div id="view-ihbar-form" class="view">
+            <div class="section">
+                <span class="label">1. Kanıt Ekleyin (Öncelikli)</span>
+                <div class="helper-text">Hızlı teşhis için fotoğraf veya kısa video çekin.</div>
+                <div class="upload-box"><span>📷 Kamera / Galeri</span><small>Maks 20MB</small></div>
+            </div>
+            <div class="section">
+                <span class="label">2. Konum Belirleme</span>
+                <div style="display:flex;gap:8px;margin-bottom:8px;">
+                    <button class="location-btn" style="flex:1;">📍 Mevcut Konum</button>
+                    <button class="location-btn" style="flex:1;background:#666;">🖼️ Fotoğraftan Al</button>
+                </div>
+                <div class="location-box" style="padding:12px;"><div class="location-text">Henüz konum belirlenmedi...</div></div>
+            </div>
+            <div class="section">
+                <span class="label">3. Gözlem Zamanı</span>
+                <div style="display:flex;gap:12px;">
+                    <input type="date" class="input" style="margin-bottom:0;">
+                    <input type="time" class="input" style="margin-bottom:0;">
                 </div>
             </div>
-
-            <!-- ====== İHBAR TÜRÜ SEÇİM EKRANI ====== -->
-            <div id="view-ihbar-home" class="view">
-                <div class="section" style="margin-top: 10px;">
-                    <div class="card-btn" id="btn-open-form">
-                        <div class="card-title">🐟 Standart İhbar Formu</div>
-                        <div class="card-desc">Tespit ettiğiniz deniz canlılarına dair ihbarınızı; konum, tarih ve
-                            fotoğraflarla birlikte bize iletin.</div>
-                    </div>
-
-                    <a href="tel:05551234567" class="card-btn emergency">
-                        <div class="card-title red">🚨 Acil Durum Bildir</div>
-                        <div class="card-desc">Ölü, yaralı veya annesinden ayrı düşmüş yavru fok görülmesi halinde formu
-                            doldurmadan bizi direkt arayarak hızlıca bildirebilirsiniz.</div>
-                    </a>
+            <div class="section">
+                <span class="label">4. Canlı Türü</span>
+                <div class="tags">
+                    <div class="tag">Akdeniz Foku</div>
+                    <div class="tag">Kum Köpekbalığı</div>
+                    <div class="tag active">Deniz Kaplumbağası</div>
+                    <div class="tag">Deniz Çayırları</div>
+                    <div class="tag">Orfoz</div>
+                    <div class="tag">Diğer / Bilmiyorum</div>
                 </div>
             </div>
-
-            <!-- ====== STANDART İHBAR FORMU ====== -->
-            <div id="view-ihbar-form" class="view">
-                <div class="section">
-                    <span class="label">1. Kanıt Ekleyin (Öncelikli)</span>
-                    <div class="helper-text">Hızlı teşhis için fotoğraf veya kısa video çekin.</div>
-                    <div class="upload-box">
-                        <div class="upload-icon"></div>
-                        <span>Kamerayı Aç / Galeri</span>
-                        <small>Maks 20MB</small>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <span class="label">2. Konum Belirleme</span>
-                    <div class="helper-text">Mevcut konumunuzu kaydetmek için GPS'i kullanın veya eklediğiniz fotoğrafın
-                        meta (EXIF) verisinden çekildiği konumu doğrudan alın.</div>
-                    <div style="display: flex; gap: 8px; margin-bottom: 8px;">
-                        <button class="location-btn" style="flex: 1;">📍 Mevcut Konum</button>
-                        <button class="location-btn" style="flex: 1; background: #666;">🖼️ Fotoğraftan Al</button>
-                    </div>
-                    <div class="location-box" style="padding: 12px;">
-                        <div class="location-text">Henüz konum belirlenmedi...</div>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <span class="label">3. Gözlem Zamanı</span>
-                    <div class="helper-text">Gözlemin yapıldığı tarih ve saati belirtin.</div>
-                    <div style="display: flex; gap: 12px;">
-                        <input type="date" class="input" style="margin-bottom: 0;">
-                        <input type="time" class="input" style="margin-bottom: 0;">
-                    </div>
-                </div>
-
-                <div class="section">
-                    <span class="label">4. Canlı Türü (Biliniyorsa)</span>
-                    <div class="tags">
-                        <div class="tag">Akdeniz Foku</div>
-                        <div class="tag">Kum Köpekbalığı</div>
-                        <div class="tag">Marmaris Semenderi</div>
-                        <div class="tag active">Deniz Kaplumbağası</div>
-                        <div class="tag">Deniz Çayırları</div>
-                        <div class="tag">Orfoz</div>
-                        <div class="tag">Diğer / Bilmiyorum</div>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <span class="label">5. Ek Açıklama (İsteğe Bağlı)</span>
-                    <textarea class="input"
-                        placeholder="Yaralı, ağa takılmış, vb. durumu kısaca özetleyin..."></textarea>
-                </div>
-
-                <div class="checkbox-container">
-                    <div class="checkbox"></div>
-                    <div>Aydınlatma ve Açık Rıza metinlerini okudum, onaylıyorum. İhbarımın yetkili kurumlara
-                        iletilmesini kabul ediyorum.</div>
-                </div>
-
-                <button class="primary-btn" id="btn-submit-form">İHBARI GÖNDER</button>
+            <div class="section">
+                <span class="label">5. Ek Açıklama (İsteğe Bağlı)</span>
+                <textarea class="input" placeholder="Yaralı, ağa takılmış, vb. durumu kısaca özetleyin..."></textarea>
             </div>
+            <div class="checkbox-container">
+                <div class="checkbox"></div>
+                <div>Aydınlatma ve Açık Rıza metinlerini okudum, onaylıyorum.</div>
+            </div>
+            <button class="primary-btn" id="btn-submit-form">İHBARI GÖNDER</button>
+        </div>
 
-            <!-- ====== GEÇMİŞ İHBARLAR ====== -->
-            <div id="view-gecmis" class="view">
-                <div class="section">
-                    <span class="label" style="font-size: 18px;">Son İhbarlarınız</span>
-                    <div class="helper-text">Yaptığınız geri bildirimlerin listesini ve onay durumunu buradan takip
-                        edebilirsiniz.</div>
-                </div>
+        <!-- ── GEÇMİŞ ── -->
+        <div id="view-gecmis" class="view">
+            <div class="tab-row">
+                <div class="tab-btn active" id="tab-ihbar-gecmis">İhbar Geçmişi</div>
+                <div class="tab-btn" id="tab-devriye-gecmis">Devriye Geçmişi</div>
+            </div>
+            <div id="panel-ihbar-gecmis">
                 <div class="list-item btn-open-modal">
                     <div class="item-thumbnail">Görsel</div>
                     <div class="item-details">
                         <div class="item-title">Deniz Kaplumbağası</div>
-                        <div class="item-date">12 Mart 2026, 14:30 - Antalya Kaş</div>
+                        <div class="item-date">12 Mart 2026, 14:30 — Antalya Kaş</div>
                         <div class="item-status">Başarıyla İletildi</div>
                     </div>
                 </div>
@@ -782,147 +414,746 @@
                     <div class="item-thumbnail">Görsel</div>
                     <div class="item-details">
                         <div class="item-title">Orfoz</div>
-                        <div class="item-date">05 Mart 2026, 09:15 - İzmir Foça</div>
+                        <div class="item-date">05 Mart 2026, 09:15 — İzmir Foça</div>
                         <div class="item-status">Başarıyla İletildi</div>
                     </div>
                 </div>
             </div>
+            <div id="panel-devriye-gecmis" style="display:none;">
+                <div class="patrol-list-item">
+                    <div class="patrol-list-header">
+                        <span class="patrol-list-title">Kaş — Rutin Devriye</span>
+                        <span class="item-status">Tamamlandı</span>
+                    </div>
+                    <div class="patrol-list-meta">
+                        <span>📅 10 Mart 2026</span>
+                        <span>⏱ 3s 42dk</span>
+                        <span>👁 4 Gözlem</span>
+                    </div>
+                </div>
+                <div class="patrol-list-item">
+                    <div class="patrol-list-header">
+                        <span class="patrol-list-title">Göcek — İhbar Çıkışı</span>
+                        <span class="item-status">Tamamlandı</span>
+                    </div>
+                    <div class="patrol-list-meta">
+                        <span>📅 02 Mart 2026</span>
+                        <span>⏱ 1s 15dk</span>
+                        <span>👁 2 Gözlem</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            <!-- ====== AYARLAR / PROFİL ====== -->
-            <div id="view-ayarlar" class="view">
-                <div class="profile-card">
-                    <div class="profile-avatar"></div>
-                    <div class="profile-name">Deniz Yıldızı</div>
-                    <div class="profile-email">deniz.yildizi@ornek.com</div>
-                    <div style="margin-top: 12px; font-weight: 600; color: #444; font-size: 14px;">🏅 Rozet: Kıyı
-                        Koruyucusu (3 İhbar)</div>
+        <!-- ── AYARLAR ── -->
+        <div id="view-ayarlar" class="view">
+            <div class="profile-card">
+                <div class="profile-avatar"></div>
+                <div class="profile-name">Serkan Gün</div>
+                <div class="profile-email">serkan@akdenizkoruma.org</div>
+                <div style="margin-top:12px;font-weight:600;color:#444;font-size:14px;">🏅 Rozet: Kıyı Koruyucusu (3 İhbar)</div>
+            </div>
+            <div class="section">
+                <span class="label">Hesap Ayarları</span>
+                <div class="settings-group">
+                    <div class="settings-item"><span>Profili Düzenle</span><span style="color:#aaa;">›</span></div>
+                    <div class="settings-item"><span>Bildirim Tercihleri</span><span style="color:#aaa;">›</span></div>
+                </div>
+                <button class="logout-btn" id="btn-logout">Çıkış Yap</button>
+            </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             FAZ 2 — PATROL EKRANLARI
+        ══════════════════════════════════════════ -->
+
+        <!-- ── DEVRİYE OLUŞTURMA FORMU ── -->
+        <div id="view-devriye-form" class="view">
+
+            <div class="section">
+                <span class="label">Takım</span>
+                <div class="pill-group" id="pill-takim">
+                    <div class="pill" data-val="Akbük">Akbük</div>
+                    <div class="pill active" data-val="Kaş">Kaş</div>
+                    <div class="pill" data-val="Göcek">Göcek</div>
+                    <div class="pill" data-val="Okluk">Okluk</div>
+                    <div class="pill" data-val="English Bay">English Bay</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <span class="label">Görev Tipi</span>
+                <div class="pill-group" id="pill-gorev">
+                    <div class="pill active" data-val="Rutin Devriye">Rutin Devriye</div>
+                    <div class="pill" data-val="İhbar Çıkışı">İhbar Çıkışı</div>
+                    <div class="pill" data-val="Takip Devriyesi">Takip Devriyesi</div>
+                    <div class="pill" data-val="Bilimsel Çalışma">Bilimsel Çalışma</div>
+                    <div class="pill" data-val="Diğer">Diğer</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <span class="label">İstasyon (Kalkış Noktası)</span>
+                <div class="search-field">
+                    <span class="search-field-icon">🔍</span>
+                    <input type="text" placeholder="İstasyon ara..." id="station-input" value="Kaş İstasyonu">
+                </div>
+                <div class="search-result visible">📍 Kaş İstasyonu</div>
+            </div>
+
+            <div class="section">
+                <span class="label">Hedef Alan</span>
+                <div class="search-field">
+                    <span class="search-field-icon">🔍</span>
+                    <input type="text" placeholder="Hedef alan ara..." id="dest-input">
+                </div>
+                <div class="search-result" id="dest-result"></div>
+            </div>
+
+            <div class="section">
+                <span class="label">Başlangıç Tarihi / Saati</span>
+                <div style="display:flex;gap:12px;">
+                    <input type="date" class="input" style="margin-bottom:0;" value="2026-08-04">
+                    <input type="time" class="input" style="margin-bottom:0;" value="09:41">
+                </div>
+            </div>
+
+            <div class="section">
+                <span class="label">Ekip Üyeleri</span>
+                <div id="member-list-form">
+                    <div class="member-row">
+                        <div class="member-avatar-sm">SG</div>
+                        <div class="member-name-sm">Serkan Gün (Siz)</div>
+                        <span class="role-badge">Lider</span>
+                    </div>
+                </div>
+                <div class="add-row" id="btn-add-pilot">
+                    <div class="add-row-icon">+</div>
+                    <span>Pilot ekle...</span>
+                </div>
+                <div class="add-row" id="btn-add-member-row">
+                    <div class="add-row-icon">+</div>
+                    <span>Üye ekle...</span>
+                </div>
+            </div>
+
+            <button class="primary-btn" id="btn-start-patrol">🚢 DEVRİYEYİ BAŞLAT</button>
+        </div>
+
+        <!-- ── AKTİF DEVRİYE PANELİ ── -->
+        <div id="view-devriye-aktif" class="view">
+
+            <div class="elapsed-display">
+                <div class="elapsed-big" id="elapsedBig">01:23:47</div>
+                <div class="elapsed-label">Devriye Süresi</div>
+            </div>
+
+            <div class="patrol-summary-card">
+                <div class="patrol-info-row">
+                    <span class="patrol-info-label">Takım</span>
+                    <span class="patrol-info-value" id="aktif-takim">Kaş</span>
+                </div>
+                <div class="patrol-info-row">
+                    <span class="patrol-info-label">Görev</span>
+                    <span class="patrol-info-value" id="aktif-gorev">Rutin Devriye</span>
+                </div>
+                <div class="patrol-info-row">
+                    <span class="patrol-info-label">İstasyon</span>
+                    <span class="patrol-info-value" id="aktif-station">Kaş İstasyonu</span>
+                </div>
+                <div class="patrol-info-row">
+                    <span class="patrol-info-label">Ekip</span>
+                    <div class="member-chips" id="aktif-ekip">
+                        <span class="member-chip leader-chip">👑 S. Gün</span>
+                        <span class="member-chip pilot-chip">⚓ A. Kaya</span>
+                        <span class="member-chip">M. Demir</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <span class="label" style="margin-bottom:0;">Gözlemler</span>
+                    <span class="section-count" id="obs-count">0 gözlem</span>
+                </div>
+                <div id="obs-empty-state" class="empty-state">
+                    <div class="empty-icon">🔭</div>
+                    <div class="empty-text">Henüz gözlem eklenmedi</div>
+                </div>
+                <div id="obs-list"></div>
+            </div>
+
+            <button class="add-obs-btn" id="btn-add-gozlem">+ GÖZLEM EKLE</button>
+            <button class="danger-btn" id="btn-kapat-devriye">Devriyi Kapat</button>
+        </div>
+
+        <!-- ── GÖZLEM EKLEME FORMU ── -->
+        <div id="view-gozlem-form" class="view">
+
+            <div class="section">
+                <span class="label">Ana Kategori</span>
+                <select class="input" id="cat0-select">
+                    <option value="">Kategori seçin...</option>
+                    <option value="balikcilik">Yasadışı Balıkçılık</option>
+                    <option value="kirlilik">Kirlilik</option>
+                    <option value="vahsi">Vahşi Yaşam</option>
+                    <option value="sar">Yardım ve Kurtarma</option>
+                    <option value="brosur">Broşür Dağıtımı</option>
+                    <option value="diger">Diğer</option>
+                </select>
+            </div>
+
+            <!-- YASADIŞI BALIKÇILIK -->
+            <div class="obs-section obs-section-hidden" id="sec-balikcilik">
+                <div class="section">
+                    <span class="label">Alt Kategori</span>
+                    <select class="input">
+                        <option>Kaçakçılık</option>
+                        <option>Yasadışı Balıkçılık</option>
+                        <option>Çalınan Ekipman</option>
+                        <option>Tekne Detayı</option>
+                    </select>
                 </div>
                 <div class="section">
-                    <span class="label">Hesap Ayarları</span>
-                    <div class="settings-group">
-                        <div class="settings-item"><span>Profili Düzenle</span><span style="color:#aaa;">›</span></div>
-                    </div>
-                    <button class="logout-btn" id="btn-logout">Çıkış Yap</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bottom Navigation -->
-        <div class="nav">
-            <div class="nav-item" id="nav-gecmis">
-                <div class="nav-icon"
-                    style="background-image: linear-gradient(135deg, #ccc 25%, transparent 25%), linear-gradient(225deg, #ccc 25%, transparent 25%), linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(315deg, #ccc 25%, transparent 25%); background-position: 10px 0, 10px 0, 0 0, 0 0; background-size: 10px 10px; background-repeat: repeat;">
-                </div>
-                <span>Geçmiş</span>
-            </div>
-            <div class="nav-item active" id="nav-ihbar-home">
-                <div class="nav-fab"></div>
-                <span style="margin-top:4px;">İhbar Et</span>
-            </div>
-            <div class="nav-item" id="nav-ayarlar">
-                <div class="nav-icon" style="border-radius: 50%;"></div>
-                <span>Ayarlar</span>
-            </div>
-        </div>
-
-        <!-- ====== İHBAR DETAY MODALI ====== -->
-        <div class="modal-overlay" id="detailModal">
-            <div style="position:absolute; top:0; left:0; width:100%; height:100%;" class="btn-close-modal"></div>
-            <div class="modal-card" style="position:relative; z-index: 10;">
-                <div class="modal-header">
-                    <span class="modal-title">İhbar Detayı</span>
-                    <span class="modal-close btn-close-modal">×</span>
-                </div>
-                <div class="modal-content">
-                    <div class="detail-photo">📷 Yüklenen Fotoğraf / Video</div>
-                    <div class="detail-row"><span class="detail-label">Tür</span><span class="detail-value">Deniz Kaplumbağası</span></div>
-                    <div class="detail-row"><span class="detail-label">Tarih & Saat</span><span class="detail-value">12 Mart 2026, 14:30</span></div>
-                    <div class="detail-row"><span class="detail-label">Konum</span><span class="detail-value">Antalya Kaş, Kaputaş Açıkları</span></div>
-                    <div class="detail-row"><span class="detail-label">Ek Açıklama</span><span class="detail-value">Sol tarafta ağa takılmış gibi görünüyordu. Gözlem mesafesinde güvenli alandaydı ancak ilerleyemiyordu. Tarafımızdan fotoğraflanarak konum iletildi.</span></div>
-                    <div class="detail-row" style="margin-bottom: 0;"><span class="detail-label">Durum</span><span
-                            class="detail-value" style="color: #2e7d32; font-weight: 700;">✓ Başarıyla İletildi</span>
+                    <span class="label">Kullanılan Araç / Yöntem</span>
+                    <div class="obs-tags tags">
+                        <div class="obs-tag tag">Ağ Takımı</div>
+                        <div class="obs-tag tag">Av Aracı</div>
+                        <div class="obs-tag tag">Zıpkın</div>
+                        <div class="obs-tag tag">Patlayıcı</div>
+                        <div class="obs-tag tag active">Kırtıl</div>
+                        <div class="obs-tag tag">Bırakma</div>
+                        <div class="obs-tag tag">Sırtı</div>
                     </div>
                 </div>
+                <div class="section">
+                    <span class="label">Balıkçı Kaynağı</span>
+                    <div class="obs-tags tags">
+                        <div class="obs-tag tag">Amatör</div>
+                        <div class="obs-tag tag active">Profesyonel</div>
+                        <div class="obs-tag tag">Ticari</div>
+                    </div>
+                </div>
+                <div class="section">
+                    <span class="label">Alınan Eylem</span>
+                    <div class="obs-tags tags">
+                        <div class="obs-tag tag active">Uyarıldı</div>
+                        <div class="obs-tag tag">Broşür Verildi</div>
+                        <div class="obs-tag tag">İhbar Edildi</div>
+                        <div class="obs-tag tag">Balıkçı Bulunamadı</div>
+                    </div>
+                </div>
+                <div class="section">
+                    <span class="label">Hedef Grup</span>
+                    <div class="obs-tags tags">
+                        <div class="obs-tag tag">Amatör Balıkçı</div>
+                        <div class="obs-tag tag active">Profesyonel Balıkçı</div>
+                        <div class="obs-tag tag">Özel Tekne</div>
+                        <div class="obs-tag tag">Ticari Tekne</div>
+                        <div class="obs-tag tag">Diğer</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KİRLİLİK -->
+            <div class="obs-section obs-section-hidden" id="sec-kirlilik">
+                <div class="section">
+                    <span class="label">Kirlilik Kaynağı</span>
+                    <div class="obs-tags tags">
+                        <div class="obs-tag tag active">Kıyısal Kirlilik</div>
+                        <div class="obs-tag tag">Tekne Kirliliği</div>
+                    </div>
+                </div>
+                <div class="section">
+                    <span class="label">Kirlilik Türü</span>
+                    <div class="obs-tags tags">
+                        <div class="obs-tag tag">Çöp</div>
+                        <div class="obs-tag tag">Atık Su</div>
+                        <div class="obs-tag tag">Yağ</div>
+                        <div class="obs-tag tag">Yakıt</div>
+                        <div class="obs-tag tag">Diğer</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VAHŞİ YAŞAM -->
+            <div class="obs-section obs-section-hidden" id="sec-vahsi">
+                <div class="section">
+                    <span class="label">Tür</span>
+                    <div class="obs-tags tags">
+                        <div class="obs-tag tag active">Kaplumbağa</div>
+                        <div class="obs-tag tag">Yeşil Kaplumbağa</div>
+                        <div class="obs-tag tag">Şişe Burunlu Yunus</div>
+                        <div class="obs-tag tag">Akdeniz Foku</div>
+                        <div class="obs-tag tag">Diğer</div>
+                    </div>
+                </div>
+                <div class="section">
+                    <span class="label">Sağlık Durumu</span>
+                    <div class="obs-tags tags">
+                        <div class="obs-tag tag active">Sağlıklı</div>
+                        <div class="obs-tag tag">Yaralı</div>
+                        <div class="obs-tag tag">Ölü</div>
+                    </div>
+                </div>
+                <div class="section">
+                    <span class="label">Birey Sayısı</span>
+                    <input type="number" class="input" placeholder="Gözlemlenen birey sayısı" value="1" min="1">
+                </div>
+            </div>
+
+            <!-- YARDIM VE KURTARMA -->
+            <div class="obs-section obs-section-hidden" id="sec-sar">
+                <div class="section">
+                    <span class="label">SAR Türü</span>
+                    <div class="obs-tags tags">
+                        <div class="obs-tag tag">İnsan Kurtarma</div>
+                        <div class="obs-tag tag active">Arızalı Tekne</div>
+                        <div class="obs-tag tag">Başıboş Tekne</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BROŞÜR DAĞITIMI -->
+            <div class="obs-section obs-section-hidden" id="sec-brosur">
+                <div class="section">
+                    <span class="label">Hedef Grup</span>
+                    <div class="obs-tags tags">
+                        <div class="obs-tag tag">Amatör Balıkçı</div>
+                        <div class="obs-tag tag">Özel Tekne</div>
+                        <div class="obs-tag tag active">Ticari Tekne</div>
+                        <div class="obs-tag tag">Diğer</div>
+                    </div>
+                </div>
+                <div class="section">
+                    <span class="label">Dağıtılan Broşür Sayısı</span>
+                    <input type="number" class="input" placeholder="Adet" value="5" min="1">
+                </div>
+            </div>
+
+            <!-- ORTAK ALANLAR (her zaman görünür) -->
+            <div class="section">
+                <span class="label">Konum</span>
+                <div class="location-box" style="padding:12px;">
+                    <div class="location-text" style="color:#2e7d32;">📍 36.1968° K, 29.6366° D — GPS'ten otomatik</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <span class="label">Fotoğraf Ekle (İsteğe Bağlı)</span>
+                <div class="upload-box" style="height:90px;">
+                    <span style="font-size:13px;">📷 Kamera / Galeri</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <span class="label">Not (İsteğe Bağlı)</span>
+                <textarea class="input" placeholder="Ek gözlem notları..."></textarea>
+            </div>
+
+            <button class="primary-btn" id="btn-save-gozlem">GÖZLEMI KAYDET</button>
+        </div>
+
+    </div><!-- /content -->
+
+    <!-- Bottom Nav -->
+    <div class="nav">
+        <div class="nav-item" id="nav-gecmis">
+            <div class="nav-icon"></div>
+            <span>Geçmiş</span>
+        </div>
+        <div class="nav-item active" id="nav-fab">
+            <div class="nav-fab"></div>
+            <span style="margin-top:4px;">+</span>
+        </div>
+        <div class="nav-item" id="nav-ayarlar">
+            <div class="nav-icon" style="border-radius:50%;"></div>
+            <span>Ayarlar</span>
+        </div>
+    </div>
+
+    <!-- İHBAR DETAY MODALI -->
+    <div class="modal-overlay" id="detailModal">
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;" class="btn-close-modal"></div>
+        <div class="modal-card" style="position:relative;z-index:10;">
+            <div class="modal-header">
+                <span class="modal-title">İhbar Detayı</span>
+                <span class="modal-close btn-close-modal">×</span>
+            </div>
+            <div class="modal-content">
+                <div class="detail-photo">📷 Yüklenen Fotoğraf / Video</div>
+                <div class="detail-row"><span class="detail-label">Tür</span><span class="detail-value">Deniz Kaplumbağası</span></div>
+                <div class="detail-row"><span class="detail-label">Tarih & Saat</span><span class="detail-value">12 Mart 2026, 14:30</span></div>
+                <div class="detail-row"><span class="detail-label">Konum</span><span class="detail-value">Antalya Kaş, Kaputaş Açıkları</span></div>
+                <div class="detail-row"><span class="detail-label">Ek Açıklama</span><span class="detail-value">Sol tarafta ağa takılmış gibi görünüyordu.</span></div>
+                <div class="detail-row" style="margin-bottom:0;"><span class="detail-label">Durum</span><span class="detail-value" style="color:#2e7d32;font-weight:700;">✓ Başarıyla İletildi</span></div>
             </div>
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
+    <!-- ACTION SHEET -->
+    <div class="action-sheet-overlay" id="actionSheet">
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;" id="actionSheetBackdrop"></div>
+        <div class="action-sheet-card" style="position:relative;z-index:10;">
+            <div class="action-sheet-handle"></div>
+            <div class="action-sheet-heading">Ne yapmak istersiniz?</div>
+            <div class="action-sheet-item" id="btn-choose-ihbar">
+                <div class="as-icon">🐟</div>
+                <div class="as-info">
+                    <div class="as-title">İhbar Et</div>
+                    <div class="as-desc">Deniz canlısı veya çevre ihlali bildirimi</div>
+                </div>
+                <div class="as-arrow">›</div>
+            </div>
+            <div class="action-sheet-item" id="btn-choose-devriye">
+                <div class="as-icon">🚢</div>
+                <div class="as-info">
+                    <div class="as-title">Devriye Başlat</div>
+                    <div class="as-desc">AKV personeli — yeni devriye oluştur</div>
+                </div>
+                <div class="as-arrow">›</div>
+            </div>
+            <div class="action-sheet-cancel" id="btn-action-sheet-cancel">Vazgeç</div>
+        </div>
+    </div>
 
-            function switchTab(tabId) {
-                document.body.classList.remove('subview');
-                const titleMap = {
-                    'ihbar-home': 'İhbar Merkezi',
-                    'gecmis':     'Geçmiş İhbarlar',
-                    'ayarlar':    'Profil ve Ayarlar'
-                };
-                document.getElementById('header-title').innerText = titleMap[tabId] || 'İhbar Merkezi';
+    <!-- DEVRİYE KAPAT CONFIRM -->
+    <div class="confirm-overlay" id="confirmKapat">
+        <div class="confirm-card">
+            <div class="confirm-title">Devriyi Kapat?</div>
+            <div class="confirm-body">Aktif devriye sonlandırılacak ve tüm veriler Salesforce'a aktarılacak. Bu işlem geri alınamaz.</div>
+            <div class="confirm-actions">
+                <div class="confirm-cancel" id="btn-confirm-cancel">Vazgeç</div>
+                <div class="confirm-confirm" id="btn-confirm-kapat">Kapat</div>
+            </div>
+        </div>
+    </div>
 
-                document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
-                document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+</div><!-- /device-frame -->
 
-                document.getElementById('view-' + tabId).classList.add('active');
+<script>
+document.addEventListener('DOMContentLoaded', function () {
 
-                if (tabId === 'ihbar-home' || tabId === 'ihbar-form') {
-                    document.getElementById('nav-ihbar-home').classList.add('active');
-                } else {
-                    document.getElementById('nav-' + tabId).classList.add('active');
-                }
-            }
+    /* ── STATE ── */
+    let patrolActive = false;
+    let obsCount = 0;
+    let elapsedSec = 5027; // demo: 01:23:47
+    let elapsedTimer = null;
+    let pendingSubview = null; // view to return to after subview close
 
-            document.getElementById('nav-gecmis').addEventListener('click',    () => switchTab('gecmis'));
-            document.getElementById('nav-ihbar-home').addEventListener('click', () => switchTab('ihbar-home'));
-            document.getElementById('nav-ayarlar').addEventListener('click',   () => switchTab('ayarlar'));
-            document.getElementById('btn-profile').addEventListener('click',   () => switchTab('ayarlar'));
+    /* ── HELPERS ── */
+    function formatElapsed(s) {
+        const h = String(Math.floor(s/3600)).padStart(2,'0');
+        const m = String(Math.floor((s%3600)/60)).padStart(2,'0');
+        const sec = String(s%60).padStart(2,'0');
+        return h+':'+m+':'+sec;
+    }
 
-            document.querySelectorAll('.btn-login').forEach(btn => {
-                btn.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    document.body.classList.remove('auth-mode');
-                    switchTab('ihbar-home');
-                });
-            });
+    function setElapsedDisplays() {
+        const t = formatElapsed(elapsedSec);
+        document.getElementById('gpsElapsed').textContent = t;
+        document.getElementById('elapsedBig').textContent = t;
+    }
 
-            document.getElementById('btn-logout').addEventListener('click', function () {
-                document.body.classList.add('auth-mode');
-                document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
-                document.getElementById('view-auth').classList.add('active');
-                document.getElementById('header-title').innerText = 'Giriş Yap';
-            });
+    function startElapsedTimer() {
+        if (elapsedTimer) return;
+        elapsedTimer = setInterval(function() {
+            elapsedSec++;
+            setElapsedDisplays();
+        }, 1000);
+    }
 
-            document.getElementById('btn-open-form').addEventListener('click', function () {
-                document.body.classList.add('subview');
-                document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
-                document.getElementById('view-ihbar-form').classList.add('active');
-                document.getElementById('header-title').innerText = 'Formu Doldur';
-            });
+    function stopElapsedTimer() {
+        clearInterval(elapsedTimer);
+        elapsedTimer = null;
+    }
 
-            document.getElementById('btn-back').addEventListener('click', function () {
-                document.body.classList.remove('subview');
-                switchTab('ihbar-home');
-            });
+    /* ── TAB SWITCH ── */
+    function switchTab(tabId) {
+        document.body.classList.remove('subview');
+        const titles = {
+            'ihbar-home': 'İhbar Merkezi',
+            'gecmis':     'Geçmiş',
+            'ayarlar':    'Profil & Ayarlar'
+        };
+        document.getElementById('header-title').textContent = titles[tabId] || 'GÖRÜLDÜ';
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        document.getElementById('view-' + tabId).classList.add('active');
+        if (tabId === 'ihbar-home') document.getElementById('nav-fab').classList.add('active');
+        else if (tabId === 'gecmis') document.getElementById('nav-gecmis').classList.add('active');
+        else if (tabId === 'ayarlar') document.getElementById('nav-ayarlar').classList.add('active');
+    }
 
-            document.getElementById('btn-submit-form').addEventListener('click', function () {
-                document.body.classList.remove('subview');
-                switchTab('gecmis');
-            });
+    /* ── SUBVIEW PUSH ── */
+    function pushSubview(viewId, title, returnTo) {
+        pendingSubview = returnTo || 'ihbar-home';
+        document.body.classList.add('subview');
+        document.getElementById('header-title').textContent = title;
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        document.getElementById('view-' + viewId).classList.add('active');
+    }
 
-            document.querySelectorAll('.btn-open-modal').forEach(btn => {
-                btn.addEventListener('click', function () {
-                    document.getElementById('detailModal').classList.add('active');
-                });
-            });
+    /* ── BACK BUTTON ── */
+    document.getElementById('btn-back').addEventListener('click', function () {
+        if (pendingSubview === 'devriye-aktif') {
+            pushSubview('devriye-aktif', 'Aktif Devriye', null);
+            document.body.classList.add('subview');
+        } else {
+            switchTab(pendingSubview || 'ihbar-home');
+        }
+    });
 
-            document.querySelectorAll('.btn-close-modal').forEach(btn => {
-                btn.addEventListener('click', function (e) {
-                    e.stopPropagation();
-                    document.getElementById('detailModal').classList.remove('active');
-                });
-            });
-
+    /* ── AUTH ── */
+    document.querySelectorAll('.btn-login').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.body.classList.remove('auth-mode');
+            switchTab('ihbar-home');
         });
-    </script>
-</body>
+    });
 
+    document.getElementById('btn-logout').addEventListener('click', function () {
+        stopElapsedTimer();
+        patrolActive = false;
+        document.getElementById('gpsBar').classList.remove('active');
+        document.body.classList.add('auth-mode');
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        document.getElementById('view-auth').classList.add('active');
+        document.getElementById('header-title').textContent = 'Giriş Yap';
+    });
+
+    /* ── NAV ── */
+    document.getElementById('nav-gecmis').addEventListener('click', () => switchTab('gecmis'));
+    document.getElementById('nav-ayarlar').addEventListener('click', () => switchTab('ayarlar'));
+    document.getElementById('btn-profile').addEventListener('click', () => switchTab('ayarlar'));
+
+    document.getElementById('nav-fab').addEventListener('click', function() {
+        if (patrolActive) {
+            pushSubview('devriye-aktif', 'Aktif Devriye', 'gecmis');
+        } else {
+            document.getElementById('actionSheet').classList.add('active');
+        }
+    });
+
+    /* ── ACTION SHEET ── */
+    document.getElementById('actionSheetBackdrop').addEventListener('click', closeActionSheet);
+    document.getElementById('btn-action-sheet-cancel').addEventListener('click', closeActionSheet);
+
+    function closeActionSheet() {
+        document.getElementById('actionSheet').classList.remove('active');
+    }
+
+    document.getElementById('btn-choose-ihbar').addEventListener('click', function() {
+        closeActionSheet();
+        pushSubview('ihbar-form', 'İhbar Formu', 'ihbar-home');
+    });
+
+    document.getElementById('btn-choose-devriye').addEventListener('click', function() {
+        closeActionSheet();
+        pushSubview('devriye-form', 'Devriye Başlat', 'ihbar-home');
+    });
+
+    /* ── İHBAR FORM ── */
+    document.getElementById('btn-open-form').addEventListener('click', function() {
+        pushSubview('ihbar-form', 'İhbar Formu', 'ihbar-home');
+    });
+
+    document.getElementById('btn-submit-form').addEventListener('click', function() {
+        switchTab('gecmis');
+    });
+
+    /* ── PILL GROUPS ── */
+    document.querySelectorAll('.pill-group').forEach(function(group) {
+        group.addEventListener('click', function(e) {
+            const pill = e.target.closest('.pill');
+            if (!pill) return;
+            group.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+            pill.classList.add('active');
+        });
+    });
+
+    /* ── OBS-TAGS (single select in wireframe) ── */
+    document.querySelectorAll('.obs-section').forEach(function(sec) {
+        sec.querySelectorAll('.obs-tags').forEach(function(group) {
+            group.addEventListener('click', function(e) {
+                const tag = e.target.closest('.obs-tag');
+                if (!tag) return;
+                group.querySelectorAll('.obs-tag').forEach(t => t.classList.remove('active'));
+                tag.classList.add('active');
+            });
+        });
+    });
+
+    /* ── DESTINATION SEARCH (demo) ── */
+    document.getElementById('dest-input').addEventListener('input', function() {
+        const v = this.value.trim();
+        const r = document.getElementById('dest-result');
+        if (v.length > 1) {
+            r.textContent = '📍 ' + v + ' (örnek sonuç)';
+            r.classList.add('visible');
+        } else {
+            r.classList.remove('visible');
+        }
+    });
+
+    /* ── ADD PILOT / MEMBER (demo) ── */
+    let pilotAdded = false, memberAdded = false;
+
+    document.getElementById('btn-add-pilot').addEventListener('click', function() {
+        if (pilotAdded) return;
+        pilotAdded = true;
+        const row = document.createElement('div');
+        row.className = 'member-row';
+        row.innerHTML = '<div class="member-avatar-sm">AK</div><div class="member-name-sm">Ali Kaya</div><span class="role-badge pilot">Pilot</span><span class="member-remove">×</span>';
+        row.querySelector('.member-remove').addEventListener('click', function() {
+            row.remove(); pilotAdded = false;
+        });
+        document.getElementById('btn-add-pilot').before(row);
+    });
+
+    document.getElementById('btn-add-member-row').addEventListener('click', function() {
+        if (memberAdded) return;
+        memberAdded = true;
+        const row = document.createElement('div');
+        row.className = 'member-row';
+        row.innerHTML = '<div class="member-avatar-sm">MD</div><div class="member-name-sm">Mehmet Demir</div><span class="role-badge member">Üye</span><span class="member-remove">×</span>';
+        row.querySelector('.member-remove').addEventListener('click', function() {
+            row.remove(); memberAdded = false;
+        });
+        document.getElementById('btn-add-member-row').before(row);
+    });
+
+    /* ── START PATROL ── */
+    document.getElementById('btn-start-patrol').addEventListener('click', function() {
+        patrolActive = true;
+        elapsedSec = 0;
+        obsCount = 0;
+        document.getElementById('obs-list').innerHTML = '';
+        document.getElementById('obs-empty-state').style.display = 'block';
+        document.getElementById('obs-count').textContent = '0 gözlem';
+
+        // Read form values
+        const takim = document.querySelector('#pill-takim .pill.active');
+        const gorev = document.querySelector('#pill-gorev .pill.active');
+        if (takim) document.getElementById('aktif-takim').textContent = takim.dataset.val;
+        if (gorev) document.getElementById('aktif-gorev').textContent = gorev.dataset.val;
+        document.getElementById('aktif-station').textContent = document.getElementById('station-input').value || 'Kaş İstasyonu';
+
+        // Build member chips
+        const chips = document.getElementById('aktif-ekip');
+        chips.innerHTML = '<span class="member-chip leader-chip">👑 S. Gün</span>';
+        if (pilotAdded) chips.innerHTML += '<span class="member-chip pilot-chip">⚓ A. Kaya</span>';
+        if (memberAdded) chips.innerHTML += '<span class="member-chip">M. Demir</span>';
+
+        document.getElementById('gpsBar').classList.add('active');
+        setElapsedDisplays();
+        startElapsedTimer();
+        pushSubview('devriye-aktif', 'Aktif Devriye', 'gecmis');
+    });
+
+    /* ── GPS BAR TAP ── */
+    document.getElementById('gpsBar').addEventListener('click', function() {
+        if (patrolActive) pushSubview('devriye-aktif', 'Aktif Devriye', 'gecmis');
+    });
+
+    /* ── ADD OBSERVATION ── */
+    document.getElementById('btn-add-gozlem').addEventListener('click', function() {
+        document.getElementById('cat0-select').value = '';
+        document.querySelectorAll('.obs-section').forEach(s => s.classList.add('obs-section-hidden'));
+        pushSubview('gozlem-form', 'Gözlem Ekle', 'devriye-aktif');
+    });
+
+    /* ── CATEGORY CASCADE ── */
+    document.getElementById('cat0-select').addEventListener('change', function() {
+        const v = this.value;
+        document.querySelectorAll('.obs-section').forEach(s => s.classList.add('obs-section-hidden'));
+        if (v) {
+            const sec = document.getElementById('sec-' + v);
+            if (sec) sec.classList.remove('obs-section-hidden');
+        }
+    });
+
+    /* ── SAVE OBSERVATION ── */
+    document.getElementById('btn-save-gozlem').addEventListener('click', function() {
+        obsCount++;
+        document.getElementById('obs-empty-state').style.display = 'none';
+        document.getElementById('obs-count').textContent = obsCount + ' gözlem';
+
+        const cat0 = document.getElementById('cat0-select');
+        const catLabels = {
+            balikcilik: 'Yasadışı Balıkçılık',
+            kirlilik:   'Kirlilik',
+            vahsi:      'Vahşi Yaşam',
+            sar:        'Yardım ve Kurtarma',
+            brosur:     'Broşür Dağıtımı',
+            diger:      'Diğer'
+        };
+        const dotClass = cat0.value || 'diger';
+        const label = catLabels[cat0.value] || 'Diğer';
+
+        const item = document.createElement('div');
+        item.className = 'obs-item';
+        item.innerHTML =
+            '<div class="obs-cat-dot ' + dotClass + '"></div>' +
+            '<div class="obs-item-detail">' +
+            '<div class="obs-item-title">' + label + '</div>' +
+            '<div class="obs-item-sub">36.1968° K, 29.6366° D — az önce</div>' +
+            '</div>';
+        document.getElementById('obs-list').appendChild(item);
+
+        pushSubview('devriye-aktif', 'Aktif Devriye', 'gecmis');
+    });
+
+    /* ── CLOSE PATROL ── */
+    document.getElementById('btn-kapat-devriye').addEventListener('click', function() {
+        document.getElementById('confirmKapat').classList.add('active');
+    });
+
+    document.getElementById('btn-confirm-cancel').addEventListener('click', function() {
+        document.getElementById('confirmKapat').classList.remove('active');
+    });
+
+    document.getElementById('btn-confirm-kapat').addEventListener('click', function() {
+        document.getElementById('confirmKapat').classList.remove('active');
+        patrolActive = false;
+        stopElapsedTimer();
+        document.getElementById('gpsBar').classList.remove('active');
+        switchTab('gecmis');
+        // Switch to devriye tab in geçmiş
+        document.getElementById('tab-devriye-gecmis').click();
+    });
+
+    /* ── GEÇMİŞ TABS ── */
+    document.getElementById('tab-ihbar-gecmis').addEventListener('click', function() {
+        this.classList.add('active');
+        document.getElementById('tab-devriye-gecmis').classList.remove('active');
+        document.getElementById('panel-ihbar-gecmis').style.display = 'block';
+        document.getElementById('panel-devriye-gecmis').style.display = 'none';
+    });
+
+    document.getElementById('tab-devriye-gecmis').addEventListener('click', function() {
+        this.classList.add('active');
+        document.getElementById('tab-ihbar-gecmis').classList.remove('active');
+        document.getElementById('panel-ihbar-gecmis').style.display = 'none';
+        document.getElementById('panel-devriye-gecmis').style.display = 'block';
+    });
+
+    /* ── İHBAR DETAIL MODAL ── */
+    document.querySelectorAll('.btn-open-modal').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.getElementById('detailModal').classList.add('active');
+        });
+    });
+    document.querySelectorAll('.btn-close-modal').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            document.getElementById('detailModal').classList.remove('active');
+        });
+    });
+
+    setElapsedDisplays();
+});
+</script>
+</body>
 </html>
