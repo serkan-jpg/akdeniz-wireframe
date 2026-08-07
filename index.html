@@ -852,6 +852,58 @@
                 </div>
             </div>
 
+            <!-- KOOPERATİF: BALIK FİYATI -->
+            <div class="obs-section obs-section-hidden" id="sec-kooperatif-balikfiyati">
+                <div class="section">
+                    <span class="label">Balık Türü</span>
+                    <input type="text" class="input" placeholder="Balık türü...">
+                </div>
+                <div class="section">
+                    <span class="label">Fiyat (TL/kg)</span>
+                    <input type="number" class="input" placeholder="₺">
+                </div>
+                <div class="section">
+                    <span class="label">Notlar</span>
+                    <textarea class="input" placeholder="Ek notlar..."></textarea>
+                </div>
+            </div>
+
+            <!-- KOOPERATİF: TEKNE DETAYI -->
+            <div class="obs-section obs-section-hidden" id="sec-kooperatif-teknedetay">
+                <div class="section">
+                    <span class="label">Tekne Adı / Kayıt No</span>
+                    <input type="text" class="input" placeholder="Tekne adı veya sicil no">
+                </div>
+                <div class="section">
+                    <span class="label">Tekne Tipi</span>
+                    <div class="obs-tags tags">
+                        <div class="obs-tag tag">Ticari</div>
+                        <div class="obs-tag tag">Amatör</div>
+                        <div class="obs-tag tag">Diğer</div>
+                    </div>
+                </div>
+                <div class="section">
+                    <span class="label">Balıkçı Sayısı</span>
+                    <input type="number" class="input" placeholder="Kişi sayısı" min="1">
+                </div>
+                <div class="section">
+                    <span class="label">Notlar</span>
+                    <textarea class="input" placeholder="Ek notlar..."></textarea>
+                </div>
+            </div>
+
+            <!-- KOOPERATİF: TOPLAM TEKNE SAYISI -->
+            <div class="obs-section obs-section-hidden" id="sec-kooperatif-toplamtekne">
+                <div class="section">
+                    <span class="label">Toplam Tekne Sayısı</span>
+                    <input type="number" class="input" placeholder="Adet" min="0">
+                </div>
+                <div class="section">
+                    <span class="label">Notlar</span>
+                    <textarea class="input" placeholder="Ek notlar..."></textarea>
+                </div>
+            </div>
+
             <!-- KAÇAKÇILIK -->
             <div class="obs-section obs-section-hidden" id="sec-kacakcilik">
                 <div class="section">
@@ -884,6 +936,7 @@
                     <div class="obs-tags tags" id="yangin-tip-group">
                         <div class="obs-tag tag" data-yt="kamp">Kamp Ateşi</div>
                         <div class="obs-tag tag" data-yt="orman">Orman Yangını</div>
+                        <div class="obs-tag tag" data-yt="mangal">Teknede Mangal</div>
                     </div>
                 </div>
 
@@ -903,6 +956,17 @@
                     <div class="section">
                         <span class="label">Rapor</span>
                         <textarea class="input" rows="3" placeholder="Yangın hakkında detaylı rapor..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Teknede Mangal alanları -->
+                <div id="yt-mangal" style="display:none;" class="cond-sec">
+                    <div class="section">
+                        <span class="label">Yapılan İşlem</span>
+                        <div class="obs-tags tags">
+                            <div class="obs-tag tag">Uyarıldı</div>
+                            <div class="obs-tag tag">İhbar Edildi</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1282,7 +1346,10 @@ document.addEventListener('DOMContentLoaded', function () {
         calinanekipman: 'sec-calinanekipman',
         'yangintıpi': 'sec-yangin',
         agacabaglama:   'sec-agacabaglama',
-        cadir:          'sec-cadir'
+        cadir:          'sec-cadir',
+        balikfiyati:    'sec-kooperatif-balikfiyati',
+        teknedetay:     'sec-kooperatif-teknedetay',
+        toplamtekne:    'sec-kooperatif-toplamtekne'
     };
 
     document.getElementById('cat0-select').addEventListener('change', function() {
@@ -1357,8 +1424,10 @@ document.addEventListener('DOMContentLoaded', function () {
             var yt = tag.dataset.yt;
             var kamp = document.getElementById('yt-kamp');
             var orman = document.getElementById('yt-orman');
+            var mangal = document.getElementById('yt-mangal');
             if (kamp) kamp.style.display = yt === 'kamp' ? 'block' : 'none';
             if (orman) orman.style.display = yt === 'orman' ? 'block' : 'none';
+            if (mangal) mangal.style.display = yt === 'mangal' ? 'block' : 'none';
         });
     }
 
