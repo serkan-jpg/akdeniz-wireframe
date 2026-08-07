@@ -778,8 +778,10 @@
                 <div id="kir-types-kiyisal" style="display:none;" class="cond-sec">
                     <div class="section">
                         <span class="label">Kirlilik Türü</span>
-                        <div class="obs-checkbox-row"><div class="obs-checkbox"></div><span>Atık Su</span></div>
-                        <div class="obs-checkbox-row"><div class="obs-checkbox"></div><span>Çöp</span></div>
+                        <div class="obs-tags tags">
+                            <div class="obs-tag tag">Atık Su</div>
+                            <div class="obs-tag tag">Çöp</div>
+                        </div>
                     </div>
                 </div>
 
@@ -787,12 +789,14 @@
                 <div id="kir-types-tekne" style="display:none;" class="cond-sec">
                     <div class="section">
                         <span class="label">Kirlilik Türü</span>
-                        <div class="obs-checkbox-row"><div class="obs-checkbox"></div><span>Petrol</span></div>
-                        <div class="obs-checkbox-row"><div class="obs-checkbox"></div><span>Yakıt</span></div>
-                        <div class="obs-checkbox-row"><div class="obs-checkbox"></div><span>Yağ</span></div>
-                        <div class="obs-checkbox-row"><div class="obs-checkbox"></div><span>Çöp</span></div>
-                        <div class="obs-checkbox-row"><div class="obs-checkbox"></div><span>Atık Su</span></div>
-                        <div class="obs-checkbox-row"><div class="obs-checkbox"></div><span>Diğer</span></div>
+                        <div class="obs-tags tags">
+                            <div class="obs-tag tag">Petrol</div>
+                            <div class="obs-tag tag">Yakıt</div>
+                            <div class="obs-tag tag">Yağ</div>
+                            <div class="obs-tag tag">Çöp</div>
+                            <div class="obs-tag tag">Atık Su</div>
+                            <div class="obs-tag tag">Diğer</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -907,10 +911,6 @@
             <!-- KAÇAKÇILIK -->
             <div class="obs-section obs-section-hidden" id="sec-kacakcilik">
                 <div class="section">
-                    <span class="label">Fotoğraf Ekle</span>
-                    <div class="upload-box" style="height:80px;"><span style="font-size:13px;">📷 Kamera / Galeri</span></div>
-                </div>
-                <div class="section">
                     <span class="label">Kaçakçılık Tipi</span>
                     <div class="obs-tags tags">
                         <div class="obs-tag tag">İnsan</div>
@@ -923,9 +923,11 @@
             <div class="obs-section obs-section-hidden" id="sec-calinanekipman">
                 <div class="section">
                     <span class="label">Çalınan Ekipman Türü</span>
-                    <div class="obs-checkbox-row"><div class="obs-checkbox"></div><span>Ağ</span></div>
-                    <div class="obs-checkbox-row"><div class="obs-checkbox"></div><span>Parakete</span></div>
-                    <div class="obs-checkbox-row"><div class="obs-checkbox"></div><span>Diğer</span></div>
+                    <div class="obs-tags tags">
+                        <div class="obs-tag tag">Ağ</div>
+                        <div class="obs-tag tag">Parakete</div>
+                        <div class="obs-tag tag">Diğer</div>
+                    </div>
                 </div>
             </div>
 
@@ -974,10 +976,6 @@
             <!-- AĞACA BAĞLAMA -->
             <div class="obs-section obs-section-hidden" id="sec-agacabaglama">
                 <div class="section">
-                    <span class="label">Fotoğraf Ekle</span>
-                    <div class="upload-box" style="height:80px;"><span style="font-size:13px;">📷 Kamera / Galeri</span></div>
-                </div>
-                <div class="section">
                     <span class="label">Notlar</span>
                     <textarea class="input" placeholder="Ek notlar..."></textarea>
                 </div>
@@ -985,10 +983,6 @@
 
             <!-- ÇADIR -->
             <div class="obs-section obs-section-hidden" id="sec-cadir">
-                <div class="section">
-                    <span class="label">Fotoğraf Ekle</span>
-                    <div class="upload-box" style="height:80px;"><span style="font-size:13px;">📷 Kamera / Galeri</span></div>
-                </div>
                 <div class="section">
                     <span class="label">Notlar</span>
                     <textarea class="input" placeholder="Ek notlar..."></textarea>
@@ -1375,16 +1369,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (v && cat1DetailSec[v]) {
             document.getElementById(cat1DetailSec[v]).classList.remove('obs-section-hidden');
         }
-    });
-
-    /* ── OBS CHECKBOXES ── */
-    document.addEventListener('click', function(e) {
-        var row = e.target.closest('.obs-checkbox-row');
-        if (!row) return;
-        var box = row.querySelector('.obs-checkbox');
-        if (box) box.classList.toggle('checked');
-        if (box && box.classList.contains('checked')) box.textContent = '✓';
-        else if (box) box.textContent = '';
     });
 
     /* ── AV ALETİ CASCADE ── */
