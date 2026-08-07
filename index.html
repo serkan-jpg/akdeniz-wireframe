@@ -241,7 +241,6 @@
         .obs-cat-dot.vahsi      { background:#43a047; }
         .obs-cat-dot.brosur     { background:#1e88e5; }
         .obs-cat-dot.sar        { background:#fb8c00; }
-        .obs-cat-dot.kooperatif { background:#7b1fa2; }
         .obs-item-detail { flex:1; }
         .obs-item-title { font-size:14px; font-weight:700; color:#222; margin-bottom:2px; }
         .obs-item-sub   { font-size:12px; color:#777; }
@@ -662,7 +661,6 @@
                     <option value="vahsi">Vahşi Yaşam</option>
                     <option value="brosur">Dağıtılan Broşür</option>
                     <option value="sar">Yardım ve Kurtarma</option>
-                    <option value="kooperatif">Kooperatif Verileri</option>
                 </select>
             </div>
 
@@ -853,58 +851,6 @@
                 <div class="section">
                     <span class="label">Dağıtılan Broşür Sayısı</span>
                     <input type="number" class="input" placeholder="Adet" value="5" min="1">
-                </div>
-            </div>
-
-            <!-- KOOPERATİF: BALIK FİYATI -->
-            <div class="obs-section obs-section-hidden" id="sec-kooperatif-balikfiyati">
-                <div class="section">
-                    <span class="label">Balık Türü</span>
-                    <input type="text" class="input" placeholder="Balık türü...">
-                </div>
-                <div class="section">
-                    <span class="label">Fiyat (TL/kg)</span>
-                    <input type="number" class="input" placeholder="₺">
-                </div>
-                <div class="section">
-                    <span class="label">Notlar</span>
-                    <textarea class="input" placeholder="Ek notlar..."></textarea>
-                </div>
-            </div>
-
-            <!-- KOOPERATİF: TEKNE DETAYI -->
-            <div class="obs-section obs-section-hidden" id="sec-kooperatif-teknedetay">
-                <div class="section">
-                    <span class="label">Tekne Adı / Kayıt No</span>
-                    <input type="text" class="input" placeholder="Tekne adı veya sicil no">
-                </div>
-                <div class="section">
-                    <span class="label">Tekne Tipi</span>
-                    <div class="obs-tags tags">
-                        <div class="obs-tag tag">Ticari</div>
-                        <div class="obs-tag tag">Amatör</div>
-                        <div class="obs-tag tag">Diğer</div>
-                    </div>
-                </div>
-                <div class="section">
-                    <span class="label">Balıkçı Sayısı</span>
-                    <input type="number" class="input" placeholder="Kişi sayısı" min="1">
-                </div>
-                <div class="section">
-                    <span class="label">Notlar</span>
-                    <textarea class="input" placeholder="Ek notlar..."></textarea>
-                </div>
-            </div>
-
-            <!-- KOOPERATİF: TOPLAM TEKNE SAYISI -->
-            <div class="obs-section obs-section-hidden" id="sec-kooperatif-toplamtekne">
-                <div class="section">
-                    <span class="label">Toplam Tekne Sayısı</span>
-                    <input type="number" class="input" placeholder="Adet" min="0">
-                </div>
-                <div class="section">
-                    <span class="label">Notlar</span>
-                    <textarea class="input" placeholder="Ek notlar..."></textarea>
                 </div>
             </div>
 
@@ -1326,11 +1272,6 @@ document.addEventListener('DOMContentLoaded', function () {
             {value:'cadir',          label:'Çadır'},
             {value:'agacabaglama',   label:'Ağaca Bağlama'}
         ],
-        kooperatif: [
-            {value:'balikfiyati', label:'Balık Fiyatı'},
-            {value:'teknedetay',  label:'Tekne Detayı'},
-            {value:'toplamtekne', label:'Toplam Tekne Sayısı'}
-        ]
     };
     const cat0DirectSec = {vahsi:'sec-vahsi', brosur:'sec-brosur', sar:'sec-sar'};
     const cat1DetailSec = {
@@ -1340,10 +1281,7 @@ document.addEventListener('DOMContentLoaded', function () {
         calinanekipman: 'sec-calinanekipman',
         'yangintıpi': 'sec-yangin',
         agacabaglama:   'sec-agacabaglama',
-        cadir:          'sec-cadir',
-        balikfiyati:    'sec-kooperatif-balikfiyati',
-        teknedetay:     'sec-kooperatif-teknedetay',
-        toplamtekne:    'sec-kooperatif-toplamtekne'
+        cadir:          'sec-cadir'
     };
 
     document.getElementById('cat0-select').addEventListener('change', function() {
@@ -1427,8 +1365,7 @@ document.addEventListener('DOMContentLoaded', function () {
             insanakt:   'İnsan Aktivitesi',
             vahsi:      'Vahşi Yaşam',
             brosur:     'Dağıtılan Broşür',
-            sar:        'Yardım ve Kurtarma',
-            kooperatif: 'Kooperatif Verileri'
+            sar:        'Yardım ve Kurtarma'
         };
         const dotClass = cat0.value || '';
         const cat0Label = cat0Labels[cat0.value] || '';
