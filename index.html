@@ -237,10 +237,11 @@
 
         .obs-item { background:#fff; border:1px solid #e0e0e0; border-radius:10px; padding:12px 14px; margin-bottom:10px; display:flex; gap:10px; align-items:flex-start; }
         .obs-cat-dot { width:10px; height:10px; border-radius:50%; background:#444; margin-top:3px; flex-shrink:0; }
-        .obs-cat-dot.balikcilik { background:#e53935; }
-        .obs-cat-dot.kirlilik   { background:#fb8c00; }
+        .obs-cat-dot.insanakt   { background:#e53935; }
         .obs-cat-dot.vahsi      { background:#43a047; }
-        .obs-cat-dot.sar        { background:#1e88e5; }
+        .obs-cat-dot.brosur     { background:#1e88e5; }
+        .obs-cat-dot.sar        { background:#fb8c00; }
+        .obs-cat-dot.kooperatif { background:#7b1fa2; }
         .obs-item-detail { flex:1; }
         .obs-item-title { font-size:14px; font-weight:700; color:#222; margin-bottom:2px; }
         .obs-item-sub   { font-size:12px; color:#777; }
@@ -646,26 +647,26 @@
                 <span class="label">Ana Kategori</span>
                 <select class="input" id="cat0-select">
                     <option value="">Kategori seçin...</option>
-                    <option value="balikcilik">Yasadışı Balıkçılık</option>
-                    <option value="kirlilik">Kirlilik</option>
+                    <option value="insanakt">İnsan Aktivitesi</option>
                     <option value="vahsi">Vahşi Yaşam</option>
+                    <option value="brosur">Dağıtılan Broşür</option>
                     <option value="sar">Yardım ve Kurtarma</option>
-                    <option value="brosur">Broşür Dağıtımı</option>
-                    <option value="diger">Diğer</option>
+                    <option value="kooperatif">Kooperatif Verileri</option>
                 </select>
+            </div>
+
+            <!-- ALT KATEGORİ -->
+            <div class="obs-section obs-section-hidden" id="cat1-section">
+                <div class="section">
+                    <span class="label">Alt Kategori</span>
+                    <select class="input" id="cat1-select">
+                        <option value="">Alt kategori seçin...</option>
+                    </select>
+                </div>
             </div>
 
             <!-- YASADIŞI BALIKÇILIK -->
             <div class="obs-section obs-section-hidden" id="sec-balikcilik">
-                <div class="section">
-                    <span class="label">Alt Kategori</span>
-                    <select class="input">
-                        <option>Kaçakçılık</option>
-                        <option>Yasadışı Balıkçılık</option>
-                        <option>Çalınan Ekipman</option>
-                        <option>Tekne Detayı</option>
-                    </select>
-                </div>
                 <div class="section">
                     <span class="label">Kullanılan Araç / Yöntem</span>
                     <div class="obs-tags tags">
@@ -1104,17 +1105,53 @@ document.addEventListener('DOMContentLoaded', function () {
     /* ── ADD OBSERVATION ── */
     document.getElementById('btn-add-gozlem').addEventListener('click', function() {
         document.getElementById('cat0-select').value = '';
+        document.getElementById('cat1-select').innerHTML = '<option value="">Alt kategori seçin...</option>';
         document.querySelectorAll('.obs-section').forEach(s => s.classList.add('obs-section-hidden'));
         pushSubview('gozlem-form', 'Gözlem Ekle', 'devriye-aktif');
     });
 
     /* ── CATEGORY CASCADE ── */
+    const cat1Options = {
+        insanakt: [
+            {value:'balikcilik',     label:'Yasadışı Balıkçılık'},
+            {value:'kirlilik',       label:'Kirlilik'},
+            {value:'yangintıpi',     label:'Yangın Tipi'},
+            {value:'kacakcilik',     label:'Kaçakçılık'},
+            {value:'calinanekipman', label:'Çalınan Ekipman'},
+            {value:'cadir',          label:'Çadır'},
+            {value:'agacabaglama',   label:'Ağaca Bağlama'}
+        ],
+        kooperatif: [
+            {value:'balikfiyati', label:'Balık Fiyatı'},
+            {value:'teknedetay',  label:'Tekne Detayı'},
+            {value:'toplamtekne', label:'Toplam Tekne Sayısı'}
+        ]
+    };
+    const cat0DirectSec = {vahsi:'sec-vahsi', brosur:'sec-brosur', sar:'sec-sar'};
+    const cat1DetailSec = {balikcilik:'sec-balikcilik', kirlilik:'sec-kirlilik'};
+
     document.getElementById('cat0-select').addEventListener('change', function() {
         const v = this.value;
         document.querySelectorAll('.obs-section').forEach(s => s.classList.add('obs-section-hidden'));
-        if (v) {
-            const sec = document.getElementById('sec-' + v);
-            if (sec) sec.classList.remove('obs-section-hidden');
+        document.getElementById('cat1-select').innerHTML = '<option value="">Alt kategori seçin...</option>';
+        if (!v) return;
+        if (cat0DirectSec[v]) {
+            document.getElementById(cat0DirectSec[v]).classList.remove('obs-section-hidden');
+        } else if (cat1Options[v]) {
+            cat1Options[v].forEach(function(opt) {
+                const o = document.createElement('option');
+                o.value = opt.value; o.textContent = opt.label;
+                document.getElementById('cat1-select').appendChild(o);
+            });
+            document.getElementById('cat1-section').classList.remove('obs-section-hidden');
+        }
+    });
+
+    document.getElementById('cat1-select').addEventListener('change', function() {
+        const v = this.value;
+        document.querySelectorAll('.obs-section:not(#cat1-section)').forEach(s => s.classList.add('obs-section-hidden'));
+        if (v && cat1DetailSec[v]) {
+            document.getElementById(cat1DetailSec[v]).classList.remove('obs-section-hidden');
         }
     });
 
@@ -1125,16 +1162,18 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('obs-count').textContent = obsCount + ' gözlem';
 
         const cat0 = document.getElementById('cat0-select');
-        const catLabels = {
-            balikcilik: 'Yasadışı Balıkçılık',
-            kirlilik:   'Kirlilik',
+        const cat1 = document.getElementById('cat1-select');
+        const cat0Labels = {
+            insanakt:   'İnsan Aktivitesi',
             vahsi:      'Vahşi Yaşam',
+            brosur:     'Dağıtılan Broşür',
             sar:        'Yardım ve Kurtarma',
-            brosur:     'Broşür Dağıtımı',
-            diger:      'Diğer'
+            kooperatif: 'Kooperatif Verileri'
         };
-        const dotClass = cat0.value || 'diger';
-        const label = catLabels[cat0.value] || 'Diğer';
+        const dotClass = cat0.value || '';
+        const cat0Label = cat0Labels[cat0.value] || '';
+        const cat1Text = cat1 && cat1.value ? cat1.options[cat1.selectedIndex].text : '';
+        const label = cat1Text ? cat0Label + ' · ' + cat1Text : cat0Label;
 
         const item = document.createElement('div');
         item.className = 'obs-item';
