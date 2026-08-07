@@ -293,6 +293,17 @@
         .confirm-confirm { flex:1; padding:14px; background:#cc0000; border-radius:10px; font-size:15px; font-weight:700; color:#fff; text-align:center; }
 
         .error-banner { background:#ffdddd; color:#aa0000; padding:15px; text-align:center; font-weight:bold; font-size:14px; width:100%; }
+
+        /* ── OBS CHECKBOX ROWS ── */
+        .obs-checkbox-row { display:flex; align-items:center; gap:14px; padding:13px 0; border-bottom:1px solid #f0f0f0; cursor:pointer; }
+        .obs-checkbox-row:last-child { border-bottom:none; }
+        .obs-checkbox { width:22px; height:22px; border:2px solid #bbb; border-radius:4px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; }
+        .obs-checkbox.checked { background:#1c1c1e; border-color:#1c1c1e; color:#fff; }
+
+        /* ── CONDITIONAL INNER SECTIONS ── */
+        .cond-sec { background:#f7f7f7; border-radius:10px; padding:14px 14px 8px; margin-top:4px; border:1px solid #e8e8e8; }
+        .cond-sec .label { font-size:13px; color:#555; }
+        .cond-sec .input { font-size:15px; background:#fff; }
     </style>
 </head>
 
@@ -668,32 +679,88 @@
             <!-- YASADIŞI BALIKÇILIK -->
             <div class="obs-section obs-section-hidden" id="sec-balikcilik">
                 <div class="section">
-                    <span class="label">Kullanılan Araç / Yöntem</span>
-                    <div class="obs-tags tags">
-                        <div class="obs-tag tag">Ağ Takımı</div>
-                        <div class="obs-tag tag">Av Aracı</div>
-                        <div class="obs-tag tag">Zıpkın</div>
-                        <div class="obs-tag tag">Patlayıcı</div>
-                        <div class="obs-tag tag active">Kırtıl</div>
-                        <div class="obs-tag tag">Bırakma</div>
-                        <div class="obs-tag tag">Sırtı</div>
+                    <span class="label">Av Aleti / Yöntemi</span>
+                    <div class="obs-tags tags" id="avc-aleti-group">
+                        <div class="obs-tag tag" data-av="olta">Olta</div>
+                        <div class="obs-tag tag" data-av="ag-takimi">Ağ Takımı</div>
+                        <div class="obs-tag tag" data-av="parakete">Parakete</div>
+                        <div class="obs-tag tag" data-av="kirtil">Kırtıl</div>
+                        <div class="obs-tag tag" data-av="zipkin">Zıpkın</div>
+                        <div class="obs-tag tag" data-av="trol">Trol</div>
+                        <div class="obs-tag tag" data-av="girgir">Girgir</div>
+                        <div class="obs-tag tag" data-av="sirti">Sırtı</div>
+                        <div class="obs-tag tag" data-av="serpme">Serpme</div>
+                        <div class="obs-tag tag" data-av="patlayici">Patlayıcı</div>
                     </div>
                 </div>
+
+                <!-- Ağ Takımı özel alanlar -->
+                <div id="av-spec-ag-takimi" style="display:none;" class="cond-sec">
+                    <div class="section" style="margin-bottom:10px;">
+                        <span class="label">Ağ Tipi</span>
+                        <input type="text" class="input" placeholder="Ağ türünü belirtin...">
+                    </div>
+                    <div class="section">
+                        <span class="label">Ağ Boyu</span>
+                        <input type="number" class="input" placeholder="Metre cinsinden">
+                    </div>
+                </div>
+
+                <!-- Parakete özel alanlar -->
+                <div id="av-spec-parakete" style="display:none;" class="cond-sec">
+                    <div class="section" style="margin-bottom:10px;">
+                        <span class="label">Parakete Boyu</span>
+                        <input type="number" class="input" placeholder="Metre cinsinden">
+                    </div>
+                    <div class="section">
+                        <span class="label">İğne Sayısı</span>
+                        <input type="number" class="input" placeholder="Adet">
+                    </div>
+                </div>
+
+                <!-- Patlayıcı özel alanlar -->
+                <div id="av-spec-patlayici" style="display:none;" class="cond-sec">
+                    <div class="section">
+                        <span class="label">Patlayıcı Tipi</span>
+                        <div class="obs-tags tags">
+                            <div class="obs-tag tag">Dinamit</div>
+                            <div class="obs-tag tag">El Bombası</div>
+                            <div class="obs-tag tag">Diğer</div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="section">
                     <span class="label">Balıkçı Kaynağı</span>
                     <div class="obs-tags tags">
+                        <div class="obs-tag tag">Profesyonel</div>
                         <div class="obs-tag tag">Amatör</div>
-                        <div class="obs-tag tag active">Profesyonel</div>
+                        <div class="obs-tag tag">Bilinmiyor</div>
                     </div>
                 </div>
                 <div class="section">
                     <span class="label">Alınan Eylem</span>
                     <div class="obs-tags tags">
-                        <div class="obs-tag tag active">Uyarıldı</div>
+                        <div class="obs-tag tag">Uyarıldı</div>
                         <div class="obs-tag tag">Broşür Verildi</div>
                         <div class="obs-tag tag">İhbar Edildi</div>
                         <div class="obs-tag tag">Balıkçı Bulunamadı</div>
                     </div>
+                </div>
+                <div class="section">
+                    <span class="label">Av Aracına El Konuldu</span>
+                    <div class="obs-tags tags">
+                        <div class="obs-tag tag">Evet</div>
+                        <div class="obs-tag tag">Hayır</div>
+                    </div>
+                </div>
+                <div class="section">
+                    <span class="label">Ağırlık (kg)</span>
+                    <input type="number" class="input" placeholder="kg cinsinden">
+                </div>
+                <div class="section">
+                    <span class="label">Balık Türleri</span>
+                    <input type="text" class="input" placeholder="Türleri belirtin...">
                 </div>
             </div>
 
@@ -701,19 +768,31 @@
             <div class="obs-section obs-section-hidden" id="sec-kirlilik">
                 <div class="section">
                     <span class="label">Kirlilik Kaynağı</span>
-                    <div class="obs-tags tags">
-                        <div class="obs-tag tag active">Kıyısal Kirlilik</div>
-                        <div class="obs-tag tag">Tekne Kirliliği</div>
+                    <div class="obs-tags tags" id="kirlilik-kaynak-group">
+                        <div class="obs-tag tag" data-kir="kiyisal">Kıyısal Kirlilik</div>
+                        <div class="obs-tag tag" data-kir="tekne">Tekne Kirliliği</div>
                     </div>
                 </div>
-                <div class="section">
-                    <span class="label">Kirlilik Türü</span>
-                    <div class="obs-tags tags">
-                        <div class="obs-tag tag">Çöp</div>
-                        <div class="obs-tag tag">Atık Su</div>
-                        <div class="obs-tag tag">Yağ</div>
-                        <div class="obs-tag tag">Yakıt</div>
-                        <div class="obs-tag tag">Diğer</div>
+
+                <!-- Kıyısal Kirlilik türleri -->
+                <div id="kir-types-kiyisal" style="display:none;" class="cond-sec">
+                    <div class="section">
+                        <span class="label">Kirlilik Türü</span>
+                        <div class="obs-checkbox-row"><div class="obs-checkbox"></div><span>Atık Su</span></div>
+                        <div class="obs-checkbox-row"><div class="obs-checkbox"></div><span>Çöp</span></div>
+                    </div>
+                </div>
+
+                <!-- Tekne Kirliliği türleri -->
+                <div id="kir-types-tekne" style="display:none;" class="cond-sec">
+                    <div class="section">
+                        <span class="label">Kirlilik Türü</span>
+                        <div class="obs-checkbox-row"><div class="obs-checkbox"></div><span>Petrol</span></div>
+                        <div class="obs-checkbox-row"><div class="obs-checkbox"></div><span>Yakıt</span></div>
+                        <div class="obs-checkbox-row"><div class="obs-checkbox"></div><span>Yağ</span></div>
+                        <div class="obs-checkbox-row"><div class="obs-checkbox"></div><span>Çöp</span></div>
+                        <div class="obs-checkbox-row"><div class="obs-checkbox"></div><span>Atık Su</span></div>
+                        <div class="obs-checkbox-row"><div class="obs-checkbox"></div><span>Diğer</span></div>
                     </div>
                 </div>
             </div>
@@ -770,6 +849,85 @@
                 <div class="section">
                     <span class="label">Dağıtılan Broşür Sayısı</span>
                     <input type="number" class="input" placeholder="Adet" value="5" min="1">
+                </div>
+            </div>
+
+            <!-- KAÇAKÇILIK -->
+            <div class="obs-section obs-section-hidden" id="sec-kacakcilik">
+                <div class="section">
+                    <span class="label">Fotoğraf Ekle</span>
+                    <div class="upload-box" style="height:80px;"><span style="font-size:13px;">📷 Kamera / Galeri</span></div>
+                </div>
+                <div class="section">
+                    <span class="label">Kaçakçılık Tipi</span>
+                    <div class="obs-tags tags">
+                        <div class="obs-tag tag">İnsan</div>
+                        <div class="obs-tag tag">Diğer</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ÇALINAN EKİPMAN -->
+            <div class="obs-section obs-section-hidden" id="sec-calinanekipman">
+                <div class="section">
+                    <span class="label">Çalınan Ekipman Türü</span>
+                    <div class="obs-checkbox-row"><div class="obs-checkbox"></div><span>Ağ</span></div>
+                    <div class="obs-checkbox-row"><div class="obs-checkbox"></div><span>Parakete</span></div>
+                    <div class="obs-checkbox-row"><div class="obs-checkbox"></div><span>Diğer</span></div>
+                </div>
+            </div>
+
+            <!-- YANGIN TİPİ -->
+            <div class="obs-section obs-section-hidden" id="sec-yangin">
+                <div class="section">
+                    <span class="label">Yangın Tipi</span>
+                    <div class="obs-tags tags" id="yangin-tip-group">
+                        <div class="obs-tag tag" data-yt="kamp">Kamp Ateşi</div>
+                        <div class="obs-tag tag" data-yt="orman">Orman Yangını</div>
+                    </div>
+                </div>
+
+                <!-- Kamp Ateşi alanları -->
+                <div id="yt-kamp" style="display:none;" class="cond-sec">
+                    <div class="section">
+                        <span class="label">Yapılan İşlem</span>
+                        <div class="obs-tags tags">
+                            <div class="obs-tag tag">Uyarıldı</div>
+                            <div class="obs-tag tag">İhbar Edildi</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orman Yangını alanları -->
+                <div id="yt-orman" style="display:none;" class="cond-sec">
+                    <div class="section">
+                        <span class="label">Rapor</span>
+                        <textarea class="input" rows="3" placeholder="Yangın hakkında detaylı rapor..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AĞACA BAĞLAMA -->
+            <div class="obs-section obs-section-hidden" id="sec-agacabaglama">
+                <div class="section">
+                    <span class="label">Fotoğraf Ekle</span>
+                    <div class="upload-box" style="height:80px;"><span style="font-size:13px;">📷 Kamera / Galeri</span></div>
+                </div>
+                <div class="section">
+                    <span class="label">Notlar</span>
+                    <textarea class="input" placeholder="Ek notlar..."></textarea>
+                </div>
+            </div>
+
+            <!-- ÇADIR -->
+            <div class="obs-section obs-section-hidden" id="sec-cadir">
+                <div class="section">
+                    <span class="label">Fotoğraf Ekle</span>
+                    <div class="upload-box" style="height:80px;"><span style="font-size:13px;">📷 Kamera / Galeri</span></div>
+                </div>
+                <div class="section">
+                    <span class="label">Notlar</span>
+                    <textarea class="input" placeholder="Ek notlar..."></textarea>
                 </div>
             </div>
 
@@ -1117,7 +1275,15 @@ document.addEventListener('DOMContentLoaded', function () {
         ]
     };
     const cat0DirectSec = {vahsi:'sec-vahsi', brosur:'sec-brosur', sar:'sec-sar'};
-    const cat1DetailSec = {balikcilik:'sec-balikcilik', kirlilik:'sec-kirlilik'};
+    const cat1DetailSec = {
+        balikcilik:     'sec-balikcilik',
+        kirlilik:       'sec-kirlilik',
+        kacakcilik:     'sec-kacakcilik',
+        calinanekipman: 'sec-calinanekipman',
+        'yangintıpi': 'sec-yangin',
+        agacabaglama:   'sec-agacabaglama',
+        cadir:          'sec-cadir'
+    };
 
     document.getElementById('cat0-select').addEventListener('change', function() {
         const v = this.value;
@@ -1143,6 +1309,58 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById(cat1DetailSec[v]).classList.remove('obs-section-hidden');
         }
     });
+
+    /* ── OBS CHECKBOXES ── */
+    document.addEventListener('click', function(e) {
+        var row = e.target.closest('.obs-checkbox-row');
+        if (!row) return;
+        var box = row.querySelector('.obs-checkbox');
+        if (box) box.classList.toggle('checked');
+        if (box && box.classList.contains('checked')) box.textContent = '✓';
+        else if (box) box.textContent = '';
+    });
+
+    /* ── AV ALETİ CASCADE ── */
+    var avAletiGroup = document.getElementById('avc-aleti-group');
+    if (avAletiGroup) {
+        avAletiGroup.addEventListener('click', function(e) {
+            var tag = e.target.closest('.obs-tag[data-av]');
+            if (!tag) return;
+            var av = tag.dataset.av;
+            ['av-spec-ag-takimi', 'av-spec-parakete', 'av-spec-patlayici'].forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el) el.style.display = ('av-spec-' + av === id) ? 'block' : 'none';
+            });
+        });
+    }
+
+    /* ── KİRLİLİK KAYNAĞI CASCADE ── */
+    var kirkaynakGroup = document.getElementById('kirlilik-kaynak-group');
+    if (kirkaynakGroup) {
+        kirkaynakGroup.addEventListener('click', function(e) {
+            var tag = e.target.closest('.obs-tag[data-kir]');
+            if (!tag) return;
+            var kir = tag.dataset.kir;
+            var kiyisal = document.getElementById('kir-types-kiyisal');
+            var tekne = document.getElementById('kir-types-tekne');
+            if (kiyisal) kiyisal.style.display = kir === 'kiyisal' ? 'block' : 'none';
+            if (tekne) tekne.style.display = kir === 'tekne' ? 'block' : 'none';
+        });
+    }
+
+    /* ── YANGIN TİPİ CASCADE ── */
+    var yanginTipGroup = document.getElementById('yangin-tip-group');
+    if (yanginTipGroup) {
+        yanginTipGroup.addEventListener('click', function(e) {
+            var tag = e.target.closest('.obs-tag[data-yt]');
+            if (!tag) return;
+            var yt = tag.dataset.yt;
+            var kamp = document.getElementById('yt-kamp');
+            var orman = document.getElementById('yt-orman');
+            if (kamp) kamp.style.display = yt === 'kamp' ? 'block' : 'none';
+            if (orman) orman.style.display = yt === 'orman' ? 'block' : 'none';
+        });
+    }
 
     /* ── SAVE OBSERVATION ── */
     document.getElementById('btn-save-gozlem').addEventListener('click', function() {
