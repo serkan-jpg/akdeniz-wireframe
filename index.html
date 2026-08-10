@@ -47,23 +47,23 @@
         /* ── GPS RECORDING BAR ── */
         .gps-bar {
             display: none;
-            height: 34px; background: #1a5c2a;
+            height: 34px; background: #111;
             align-items: center; justify-content: space-between;
             padding: 0 16px; flex-shrink: 0; z-index: 99;
         }
         .gps-bar.active { display: flex; }
         .gps-dot {
-            width: 8px; height: 8px; background: #4cff7e; border-radius: 50%;
+            width: 8px; height: 8px; background: #aaa; border-radius: 50%;
             margin-right: 8px; flex-shrink: 0;
-            box-shadow: 0 0 0 0 rgba(76,255,126,.4);
+            box-shadow: 0 0 0 0 rgba(200,200,200,.4);
             animation: gpsPulse 1.5s infinite;
         }
         @keyframes gpsPulse {
-            0%   { box-shadow: 0 0 0 0 rgba(76,255,126,.5); }
-            70%  { box-shadow: 0 0 0 6px rgba(76,255,126,0); }
-            100% { box-shadow: 0 0 0 0 rgba(76,255,126,0); }
+            0%   { box-shadow: 0 0 0 0 rgba(200,200,200,.5); }
+            70%  { box-shadow: 0 0 0 6px rgba(200,200,200,0); }
+            100% { box-shadow: 0 0 0 0 rgba(200,200,200,0); }
         }
-        .gps-label { color: #c8f5d8; font-size: 12px; font-weight: 600; flex: 1; }
+        .gps-label { color: #aaa; font-size: 12px; font-weight: 600; flex: 1; }
         .gps-elapsed { color: #fff; font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; }
 
         /* ── HEADER ── */
@@ -201,9 +201,9 @@
         .member-row { display:flex; align-items:center; gap:12px; background:#fff; border:1px solid #e0e0e0; border-radius:10px; padding:12px 14px; margin-bottom:8px; }
         .member-avatar-sm { width:36px; height:36px; background:#e0e0e0; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#555; flex-shrink:0; }
         .member-name-sm { font-size:14px; font-weight:600; color:#222; flex:1; }
-        .role-badge { font-size:11px; font-weight:700; padding:3px 8px; border-radius:10px; background:#e8f5e9; color:#1b5e20; }
-        .role-badge.pilot { background:#e3f2fd; color:#0d47a1; }
-        .role-badge.member { background:#f3f3f3; color:#555; }
+        .role-badge { font-size:11px; font-weight:700; padding:3px 8px; border-radius:10px; background:#f0f0f0; color:#444; }
+        .role-badge.pilot { background:#f0f0f0; color:#444; }
+        .role-badge.member { background:#f0f0f0; color:#555; }
         .member-remove { color:#bbb; font-size:20px; padding:4px 8px; }
         .member-remove:active { color:#cc0000; }
         .add-row { display:flex; align-items:center; gap:10px; padding:12px 14px; border:2px dashed #ddd; border-radius:10px; margin-bottom:8px; color:#666; font-size:14px; font-weight:600; }
@@ -225,8 +225,8 @@
         .patrol-info-value { font-size:14px; color:#222; font-weight:600; flex:1; line-height:1.3; }
         .member-chips { display:flex; flex-wrap:wrap; gap:6px; }
         .member-chip { font-size:12px; font-weight:600; padding:5px 10px; background:#f0f0f0; border-radius:12px; color:#333; }
-        .member-chip.leader-chip { background:#e8f5e9; color:#1b5e20; }
-        .member-chip.pilot-chip  { background:#e3f2fd; color:#0d47a1; }
+        .member-chip.leader-chip { background:#e0e0e0; color:#222; }
+        .member-chip.pilot-chip  { background:#e0e0e0; color:#222; }
 
         .elapsed-display { text-align:center; padding:20px 0 12px; }
         .elapsed-big { font-size:42px; font-weight:800; color:#111; letter-spacing:-1px; font-variant-numeric:tabular-nums; }
@@ -360,6 +360,10 @@
                     <div class="card-title red">🚨 Acil Durum Bildir</div>
                     <div class="card-desc">Ölü, yaralı veya annesinden ayrı düşmüş yavru fok görülmesi halinde direkt arayın.</div>
                 </a>
+                <div class="card-btn" id="btn-choose-devriye" style="margin-top:30px; border-color:#111;">
+                    <div class="card-title">Devriye Başlat</div>
+                    <div class="card-desc">AKV personeli — yeni devriye oluştur ve denize çık.</div>
+                </div>
             </div>
         </div>
 
@@ -586,9 +590,10 @@
                         <span class="role-badge">Lider</span>
                     </div>
                 </div>
-                <div class="add-row" id="btn-add-pilot">
-                    <div class="add-row-icon">+</div>
-                    <span>Pilot ekle...</span>
+                <div class="member-row pilot-placeholder" id="pilot-placeholder-row" style="cursor:pointer; border:2px dashed #ccc; border-radius:10px; padding:10px 12px; margin-bottom:4px;">
+                    <div class="member-avatar-sm" style="background:#f0f0f0; color:#bbb; border:2px dashed #bbb;">?</div>
+                    <div class="member-name-sm" style="color:#aaa; font-style:italic;">Pilot seçilmedi</div>
+                    <span class="role-badge pilot">Pilot</span>
                 </div>
                 <div class="add-row" id="btn-add-member-row">
                     <div class="add-row-icon">+</div>
@@ -596,7 +601,7 @@
                 </div>
             </div>
 
-            <button class="primary-btn" id="btn-start-patrol">🚢 DEVRİYEYİ BAŞLAT</button>
+            <button class="primary-btn" id="btn-start-patrol">DEVRİYEYİ BAŞLAT</button>
         </div>
 
         <!-- ── AKTİF DEVRİYE PANELİ ── -->
@@ -1000,20 +1005,11 @@
         <div style="position:absolute;top:0;left:0;width:100%;height:100%;" id="actionSheetBackdrop"></div>
         <div class="action-sheet-card" style="position:relative;z-index:10;">
             <div class="action-sheet-handle"></div>
-            <div class="action-sheet-heading">Ne yapmak istersiniz?</div>
             <div class="action-sheet-item" id="btn-choose-ihbar">
                 <div class="as-icon">🐟</div>
                 <div class="as-info">
                     <div class="as-title">İhbar Et</div>
                     <div class="as-desc">Deniz canlısı veya çevre ihlali bildirimi</div>
-                </div>
-                <div class="as-arrow">›</div>
-            </div>
-            <div class="action-sheet-item" id="btn-choose-devriye">
-                <div class="as-icon">🚢</div>
-                <div class="as-info">
-                    <div class="as-title">Devriye Başlat</div>
-                    <div class="as-desc">AKV personeli — yeni devriye oluştur</div>
                 </div>
                 <div class="as-arrow">›</div>
             </div>
@@ -1136,7 +1132,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (patrolActive) {
             pushSubview('devriye-aktif', 'Aktif Devriye', 'gecmis');
         } else {
-            document.getElementById('actionSheet').classList.add('active');
+            pushSubview('ihbar-form', 'İhbar Formu', 'ihbar-home');
         }
     });
 
@@ -1154,7 +1150,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     document.getElementById('btn-choose-devriye').addEventListener('click', function() {
-        closeActionSheet();
         pushSubview('devriye-form', 'Devriye Başlat', 'ihbar-home');
     });
 
@@ -1191,29 +1186,37 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     /* ── ADD PILOT / MEMBER (demo) ── */
-    let pilotAdded = false, memberAdded = false;
+    let pilotAdded = false;
+    const demoMembers = ['Mehmet Demir', 'Fatma Yıldız', 'Osman Çelik', 'Zeynep Arslan'];
+    let memberIdx = 0;
 
-    document.getElementById('btn-add-pilot').addEventListener('click', function() {
+    document.getElementById('pilot-placeholder-row').addEventListener('click', function() {
         if (pilotAdded) return;
         pilotAdded = true;
-        const row = document.createElement('div');
-        row.className = 'member-row';
-        row.innerHTML = '<div class="member-avatar-sm">AK</div><div class="member-name-sm">Ali Kaya</div><span class="role-badge pilot">Pilot</span><span class="member-remove">×</span>';
-        row.querySelector('.member-remove').addEventListener('click', function() {
-            row.remove(); pilotAdded = false;
+        const placeholder = document.getElementById('pilot-placeholder-row');
+        placeholder.classList.remove('pilot-placeholder');
+        placeholder.style.border = '';
+        placeholder.style.borderRadius = '';
+        placeholder.style.padding = '';
+        placeholder.style.cursor = '';
+        placeholder.innerHTML = '<div class="member-avatar-sm">AK</div><div class="member-name-sm">Ali Kaya</div><span class="role-badge pilot">Pilot</span><span class="member-remove">×</span>';
+        placeholder.querySelector('.member-remove').addEventListener('click', function() {
+            placeholder.classList.add('pilot-placeholder');
+            placeholder.style.cssText = 'cursor:pointer; border:2px dashed #ccc; border-radius:10px; padding:10px 12px; margin-bottom:4px;';
+            placeholder.innerHTML = '<div class="member-avatar-sm" style="background:#f0f0f0;color:#bbb;border:2px dashed #bbb;">?</div><div class="member-name-sm" style="color:#aaa;font-style:italic;">Pilot seçilmedi</div><span class="role-badge pilot">Pilot</span>';
+            placeholder.querySelector('.member-avatar-sm').parentElement.querySelector('.pilot-placeholder') || placeholder.addEventListener('click', arguments.callee);
+            pilotAdded = false;
         });
-        document.getElementById('btn-add-pilot').before(row);
     });
 
     document.getElementById('btn-add-member-row').addEventListener('click', function() {
-        if (memberAdded) return;
-        memberAdded = true;
+        const name = demoMembers[memberIdx % demoMembers.length];
+        const initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
+        memberIdx++;
         const row = document.createElement('div');
         row.className = 'member-row';
-        row.innerHTML = '<div class="member-avatar-sm">MD</div><div class="member-name-sm">Mehmet Demir</div><span class="role-badge member">Üye</span><span class="member-remove">×</span>';
-        row.querySelector('.member-remove').addEventListener('click', function() {
-            row.remove(); memberAdded = false;
-        });
+        row.innerHTML = '<div class="member-avatar-sm">' + initials + '</div><div class="member-name-sm">' + name + '</div><span class="role-badge member">Üye</span><span class="member-remove">×</span>';
+        row.querySelector('.member-remove').addEventListener('click', function() { row.remove(); });
         document.getElementById('btn-add-member-row').before(row);
     });
 
@@ -1238,9 +1241,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Build member chips
         const chips = document.getElementById('aktif-ekip');
-        chips.innerHTML = '<span class="member-chip leader-chip">👑 S. Gün</span>';
-        if (pilotAdded) chips.innerHTML += '<span class="member-chip pilot-chip">⚓ A. Kaya</span>';
-        if (memberAdded) chips.innerHTML += '<span class="member-chip">M. Demir</span>';
+        chips.innerHTML = '<span class="member-chip leader-chip">S. Gün</span>';
+        if (pilotAdded) chips.innerHTML += '<span class="member-chip pilot-chip">A. Kaya</span>';
+        document.querySelectorAll('#member-list-form .member-row:not(.pilot-placeholder)').forEach(function(r) {
+            const name = r.querySelector('.member-name-sm');
+            if (name && !name.textContent.includes('Siz')) {
+                const badge = r.querySelector('.role-badge');
+                if (badge && badge.textContent === 'Üye') {
+                    const initials = name.textContent.split(' ').map(n => n[0]).join('');
+                    chips.innerHTML += '<span class="member-chip">' + initials + '</span>';
+                }
+            }
+        });
 
         document.getElementById('gpsBar').classList.add('active');
         setElapsedDisplays();
